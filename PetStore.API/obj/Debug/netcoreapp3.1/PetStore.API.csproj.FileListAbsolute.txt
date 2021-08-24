@@ -1,0 +1,6 @@
+C:\Users\PaulWalter\Repos\IocMediatorCqrsExample\PetStore.API\obj\Debug\netcoreapp3.1\PetStore.API.csproj.AssemblyReference.cache
+C:\Users\PaulWalter\Repos\IocMediatorCqrsExample\PetStore.API\obj\Debug\netcoreapp3.1\PetStore.API.AssemblyInfoInputs.cache
+C:\Users\PaulWalter\Repos\IocMediatorCqrsExample\PetStore.API\obj\Debug\netcoreapp3.1\PetStore.API.AssemblyInfo.cs
+C:\Users\PaulWalter\Repos\IocMediatorCqrsExample\PetStore.API\obj\Debug\netcoreapp3.1\PetStore.API.csproj.CoreCompileInputs.cache
+C:\Users\PaulWalter\Repos\IocMediatorCqrsExample\PetStore.API\obj\Debug\netcoreapp3.1\PetStore.API.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\PaulWalter\Repos\IocMediatorCqrsExample\PetStore.API\obj\Debug\netcoreapp3.1\PetStore.API.MvcApplicationPartsAssemblyInfo.cache

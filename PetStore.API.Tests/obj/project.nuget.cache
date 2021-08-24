@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "NSv5Ovk3rOPe+JybFTCaoKQ62dI/ObTRvrDarOHf/eKEZPSpebheGvEsGPFWR969FTAkGB0P0CAf2dDYQzwUKQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\PaulWalter\\Repos\\IocMediatorCqrsExample\\PetStore.API.Tests\\PetStore.API.Tests.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\PaulWalter\\.nuget\\packages\\fluentvalidation\\10.3.1\\fluentvalidation.10.3.1.nupkg.sha512",
+    "C:\\Users\\PaulWalter\\.nuget\\packages\\fluentvalidation.aspnetcore\\10.3.1\\fluentvalidation.aspnetcore.10.3.1.nupkg.sha512",
+    "C:\\Users\\PaulWalter\\.nuget\\packages\\fluentvalidation.dependencyinjectionextensions\\10.3.1\\fluentvalidation.dependencyinjectionextensions.10.3.1.nupkg.sha512",
+    "C:\\Users\\PaulWalter\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\2.1.0\\microsoft.extensions.dependencyinjection.abstractions.2.1.0.nupkg.sha512"
+  ],
+  "logs": []
+}
