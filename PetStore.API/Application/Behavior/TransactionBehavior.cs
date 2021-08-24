@@ -5,9 +5,9 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-// using Waivers.API.Application.IntegrationEvents;
+// using PetStoreAPI.Application.IntegrationEvents;
 //using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Extensions;
-//using Microsoft.eShopOnContainers.Services.Waivers.Infrastructure;
+//using Microsoft.eShopOnContainers.Services.PetStoreInfrastructure;
 
 namespace Petstore.Swagger.Io.Api.Application.Behavior
 {
@@ -17,15 +17,15 @@ namespace Petstore.Swagger.Io.Api.Application.Behavior
         /*
         
         private readonly ILogger _logger;
-        private readonly WaiversContext _dbContext;
-        private readonly IWaiversIntegrationEventService _waiversIntegrationEventService;
+        private readonly PetStoresContext _dbContext;
+        private readonly IPetStoresIntegrationEventService _petsIntegrationEventService;
 
-        public TransactionBehaviour(WaiversContext dbContext,
-            IWaiversIntegrationEventService orderingIntegrationEventService,
+        public TransactionBehaviour(PetStoresContext dbContext,
+            IPetStoresIntegrationEventService orderingIntegrationEventService,
             ILogger logger)
         {
-            _dbContext = dbContext ?? throw new ArgumentException(nameof(WaiversContext));
-            _waiversIntegrationEventService = orderingIntegrationEventService ?? throw new ArgumentException(nameof(orderingIntegrationEventService));
+            _dbContext = dbContext ?? throw new ArgumentException(nameof(PetStoresContext));
+            _petsIntegrationEventService = orderingIntegrationEventService ?? throw new ArgumentException(nameof(orderingIntegrationEventService));
             _logger = logger ?? throw new ArgumentException(nameof(ILogger));
         }
 
@@ -62,7 +62,7 @@ namespace Petstore.Swagger.Io.Api.Application.Behavior
                         transactionId = transaction.TransactionId;
                     }
 
-                    await _waiversIntegrationEventService.PublishEventsThroughEventBusAsync(transactionId);
+                    await _petsIntegrationEventService.PublishEventsThroughEventBusAsync(transactionId);
                 });
 
                 return response;

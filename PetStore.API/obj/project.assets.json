@@ -1350,6 +1350,7 @@
           "FluentValidation.AspNetCore": "10.3.1",
           "MediatR": "9.0.0",
           "MediatR.Extensions.Autofac.DependencyInjection": "7.3.0",
+          "Microsoft.AspNet.WebApi.Core": "5.2.7",
           "Newtonsoft.Json": "13.0.1",
           "Serilog": "2.10.0",
           "Serilog.Sinks.Console": "4.0.0"
@@ -1359,6 +1360,19 @@
         },
         "runtime": {
           "bin/placeholder/PetStore.Common.dll": {}
+        }
+      },
+      "PetStore.Domain/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "PetStore.Common": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/PetStore.Domain.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/PetStore.Domain.dll": {}
         }
       }
     }
@@ -4852,6 +4866,11 @@
       "type": "project",
       "path": "../PetStore.Common/PetStore.Common.csproj",
       "msbuildProject": "../PetStore.Common/PetStore.Common.csproj"
+    },
+    "PetStore.Domain/1.0.0": {
+      "type": "project",
+      "path": "../PetStore.Domain/PetStore.Domain.csproj",
+      "msbuildProject": "../PetStore.Domain/PetStore.Domain.csproj"
     }
   },
   "projectFileDependencyGroups": {
@@ -4865,6 +4884,7 @@
       "Microsoft.AspNet.WebApi.Core >= 5.2.7",
       "Newtonsoft.Json >= 13.0.1",
       "PetStore.Common >= 1.0.0",
+      "PetStore.Domain >= 1.0.0",
       "Serilog >= 2.10.0",
       "Serilog.Sinks.Console >= 4.0.0"
     ]
@@ -4905,6 +4925,9 @@
           "projectReferences": {
             "C:\\Users\\PaulWalter\\Repos\\IocMediatorCqrsExample\\Petstore.Common\\Petstore.Common.csproj": {
               "projectPath": "C:\\Users\\PaulWalter\\Repos\\IocMediatorCqrsExample\\Petstore.Common\\Petstore.Common.csproj"
+            },
+            "C:\\Users\\PaulWalter\\Repos\\IocMediatorCqrsExample\\PetStore.Domain\\PetStore.Domain.csproj": {
+              "projectPath": "C:\\Users\\PaulWalter\\Repos\\IocMediatorCqrsExample\\PetStore.Domain\\PetStore.Domain.csproj"
             }
           }
         }

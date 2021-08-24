@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "qeOYnIlBUPXuQHZoxJd9kuG3Sdp1x1v4h9VLaTScwA5WaKzHPkS1UvRY4Xuu3fYT24Le8LBnePZupGB0DTMxmQ==",
+  "dgSpecHash": "GhWuEg9kF53RDpVtDs7ZsRDmjB/QOH6SbAnpiYQ/AveEy5NOmbdpYHNVKyQYu4uZ1Kyc8hL4VOzcvpkubUPKCw==",
   "success": true,
   "projectFilePath": "C:\\Users\\PaulWalter\\Repos\\IocMediatorCqrsExample\\PetStore.API\\PetStore.API.csproj",
   "expectedPackageFiles": [

@@ -1,18 +1,12 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
-using cx_ui.Common.Config;
 using MediatR;
 using Petstore.Swagger.Io.Api.Application.Behavior;
 using Petstore.Swagger.Io.Common.Config;
-using ServiceSeedwork.API.Application.Behaviors;
-using ServiceSeedwork.API.Config;
 using System;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Web.Http;
-using WaiverRequests.API.Config;
-using WaiverRequests.Data.Config;
-using Waivers.API.config;
 
 namespace Petstore.Swagger.Io.Api.Application.Config
 {
@@ -35,13 +29,7 @@ namespace Petstore.Swagger.Io.Api.Application.Config
             // Here are the modules we wish to load for the API project. 
             IEnumerable<Autofac.Module> modulesToLoad = new List<Autofac.Module>()
             {
-                new ServiceSeedworkMediatorModule(),
-                new ServiceSeedworkApplicationModule("Incorrect Environment"), // TODO: figure out how to log the correct environment for static usages of Logger. (Log.Logger.Error())
-                new WaiverMediatorModule(),
-                new WaiverApplicationModule(),
-                new WaiverRequestsMediatorModule(),
-                new WaiverRequestsApplicationModule(),
-                new WaiverRequestsDataMediatorModule()
+                // TODO: create modules
             };
 
             // Do the magic.

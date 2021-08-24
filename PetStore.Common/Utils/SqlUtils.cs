@@ -67,9 +67,9 @@ namespace Petstore.Swagger.Io.Common.Utils
             string ordersSqlStr = "";
 
             // The constants are just SQL when you remove the underscore. This can be more performant. Change if when you do.
-            static string GetSQL(T waiverSort)
+            static string GetSQL(T petSort)
             {
-                string sql = EnumUtils.GetEnumMemberAttrValue<T>(waiverSort);
+                string sql = EnumUtils.GetEnumMemberAttrValue<T>(petSort);
                 sql = sql.Replace("_ASC", " ASC");
                 sql = sql.Replace("_DESC", " DESC");
                 return sql;

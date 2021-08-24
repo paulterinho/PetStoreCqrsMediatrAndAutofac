@@ -24,7 +24,7 @@ namespace Petstore.Swagger.Io.Api.Application.Behavior
     ///         this will intercept the command msg and take action.
     ///     <para>
     ///     <para>
-    ///         This particular class is only responsibile for finding other validators registered via AutoFac (See WaiverMediatorModule.cs)
+    ///         This particular class is only responsibile for finding other validators registered via AutoFac (See PetStoreMediatorModule.cs)
     ///     </para>
     ///     <para>
     ///         See the eShops example for more information: https://github.com/dotnet-architecture/eShopOnContainers 
@@ -55,7 +55,7 @@ namespace Petstore.Swagger.Io.Api.Application.Behavior
 
                 _logger.Information("----- Validating command {CommandType}", typeName);
 
-                // NOTE: This will look for validators registered witht he <TRequest> type (If it's a SaveWaiverDraftCommand Validator),
+                // NOTE: This will look for validators registered witht he <TRequest> type (If it's a SavePetStoreDraftCommand Validator),
                 //       it will get added via Autofac to this class.
                 var failures = _validators
                     .Select(v => v.Validate(request))

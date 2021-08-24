@@ -5,10 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Application\Query\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Autofac" Version="6.2.0" />
     <PackageReference Include="Autofac.WebApi2" Version="6.0.1" />
     <PackageReference Include="FluentValidation" Version="10.3.1" />
@@ -23,6 +19,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Petstore.Common\Petstore.Common.csproj" />
+    <ProjectReference Include="..\PetStore.Domain\PetStore.Domain.csproj" />
   </ItemGroup>
 
 

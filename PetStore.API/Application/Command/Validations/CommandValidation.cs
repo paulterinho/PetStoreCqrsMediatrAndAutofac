@@ -9,17 +9,17 @@ namespace Petstore.Swagger.Io.Api.Application.Command
     /// <summary>
     /// This class exists to show how to integrate a validator into the Mediatr request pipeline. 
     /// </summary>
-    public class SaveWaiverDraftCommandValidator : AbstractValidator<SaveWaiverDraftCommand>
+    public class CreatePetValidatior : AbstractValidator<CreatePetCommand>
     {
-        public SaveWaiverDraftCommandValidator(ILogger logger)
+        public CreatePetValidatior(ILogger logger)
         {
             try
             {
                 //TODO FUTURE TBD
 
-                // NOTE, here we can do syntax checking for a request BEFORE a domain object is even marshalled (Waiver). 
+                // NOTE, here we can do syntax checking for a request BEFORE a domain object is even marshalled (PetStore). 
                 /*
-                        RuleFor(command => command.Waiver.ResourceID).NotEmpty();
+                        RuleFor(command => command.PetStore.ResourceID).NotEmpty();
 
                         // other examples of what Fluent Validator can do.
                         RuleFor(command => command.CardNumber).NotEmpty().Length(12, 19);
