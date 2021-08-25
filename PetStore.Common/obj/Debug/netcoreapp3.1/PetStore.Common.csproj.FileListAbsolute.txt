@@ -1,8 +1,0 @@
-C:\Users\PaulWalter\Repos\IocMediatorCqrsExample\PetStore.Common\bin\Debug\netcoreapp3.1\PetStore.Common.deps.json
-C:\Users\PaulWalter\Repos\IocMediatorCqrsExample\PetStore.Common\bin\Debug\netcoreapp3.1\PetStore.Common.dll
-C:\Users\PaulWalter\Repos\IocMediatorCqrsExample\PetStore.Common\bin\Debug\netcoreapp3.1\PetStore.Common.pdb
-C:\Users\PaulWalter\Repos\IocMediatorCqrsExample\PetStore.Common\obj\Debug\netcoreapp3.1\PetStore.Common.AssemblyInfoInputs.cache
-C:\Users\PaulWalter\Repos\IocMediatorCqrsExample\PetStore.Common\obj\Debug\netcoreapp3.1\PetStore.Common.AssemblyInfo.cs
-C:\Users\PaulWalter\Repos\IocMediatorCqrsExample\PetStore.Common\obj\Debug\netcoreapp3.1\PetStore.Common.csproj.CoreCompileInputs.cache
-C:\Users\PaulWalter\Repos\IocMediatorCqrsExample\PetStore.Common\obj\Debug\netcoreapp3.1\PetStore.Common.dll
-C:\Users\PaulWalter\Repos\IocMediatorCqrsExample\PetStore.Common\obj\Debug\netcoreapp3.1\PetStore.Common.pdb

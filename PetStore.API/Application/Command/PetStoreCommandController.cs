@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 
 namespace PetStore.API.Application.Command
 {
+    [ApiController]
+    [Route("[controller]")]
     public class PetStoreCommandController : CommandControllerBase
     {
 

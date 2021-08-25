@@ -29,7 +29,9 @@ namespace Petstore.Swagger.Io.Api.Application.Config
             // Here are the modules we wish to load for the API project. 
             IEnumerable<Autofac.Module> modulesToLoad = new List<Autofac.Module>()
             {
-                // TODO: create modules
+                new AutofacMediatorModule(),
+                new AutofacApplicationModule("Incorrect Environment") // TODO: figure out how to log the correct environment for static usages of Logger. (Log.Logger.Error())
+                
             };
 
             // Do the magic.
