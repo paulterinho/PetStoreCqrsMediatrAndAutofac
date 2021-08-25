@@ -17,13 +17,9 @@ namespace Petstore.Swagger.Io.Api.Application.Config
     {
         HttpConfiguration Config;
 
-        public AutofacStart(HttpConfiguration config) : base()
+        public AutofacStart(ContainerBuilder builder = null, HttpConfiguration config = null) : base()
         {
-            if (config is null)
-            {
-                throw new ArgumentNullException(nameof(config));
-            }
-
+            
             Config = config;
 
             // Here are the modules we wish to load for the API project. 
@@ -35,7 +31,7 @@ namespace Petstore.Swagger.Io.Api.Application.Config
             };
 
             // Do the magic.
-            Load(modulesToLoad, preConfig, postConfig);
+            Load(modulesToLoad, preConfig, postConfig, builder);
         }
 
         /// <summary>
@@ -47,8 +43,11 @@ namespace Petstore.Swagger.Io.Api.Application.Config
             // Register your Web API controllers.
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
-            // OPTIONAL: Register the Autofac filter provider.
-            builder.RegisterWebApiFilterProvider(Config);
+            if(Config!= null)
+            {
+                // OPTIONAL: Register the Autofac filter provider.
+                builder.RegisterWebApiFilterProvider(Config);
+            }
 
             // OPTIONAL: Register the Autofac model binder provider.
             builder.RegisterWebApiModelBinderProvider();
@@ -59,6 +58,8 @@ namespace Petstore.Swagger.Io.Api.Application.Config
         /// </summary>
         private IContainer postConfig(ContainerBuilder builder)
         {
+            IContainer container = null;
+
             // request & notification handlers
             builder.Register<ServiceFactory>(context =>
             {
@@ -84,8 +85,12 @@ namespace Petstore.Swagger.Io.Api.Application.Config
             builder.RegisterAssemblyTypes(typeof(IRequest).GetTypeInfo().Assembly).AsImplementedInterfaces(); // via assembly scan
 
             // Set the dependency resolver to be Autofac.
-            var container = builder.Build();
-            Config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+            /*var container = builder.Build();
+
+            if (Config != null)
+            {
+                Config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
+            }*/
 
             return container;
         }

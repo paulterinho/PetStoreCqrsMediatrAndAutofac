@@ -49,11 +49,11 @@ namespace Petstore.Swagger.Io.Common.Config
         /// <param name="autoFacModules">The Auto Fac modules you wish to load</param>
         /// <param name="preLoadConfig">A callback that happens before the autoFacModules are loaded. </param>
         /// <param name="postLoadConfig">A callback after the autoFacModules are loaded</param>
-        public void Load(IEnumerable<Autofac.Module> autoFacModules, LoadPreCallback preLoadConfig = null, LoadPostCallback postLoadConfig = null)
+        public void Load(IEnumerable<Autofac.Module> autoFacModules, LoadPreCallback preLoadConfig = null, LoadPostCallback postLoadConfig = null, ContainerBuilder builder = null)
         {
             try
             {
-                Builder = new ContainerBuilder();
+                Builder = (builder == null) ? new ContainerBuilder() : builder;
 
                 // Initialize the module
                 if (preLoadConfig != null)

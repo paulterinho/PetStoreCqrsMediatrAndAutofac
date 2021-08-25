@@ -65,7 +65,7 @@ namespace Petstore.Swagger.Io.Common.Query
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.13.1.0 (NJsonSchema v10.5.1.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class Client : IClient
     {
-        private string _baseUrl = "http://petstore.swagger.io/v1";
+        private string _baseUrl = "http://petstore.swagger.io/api";
         private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
     
         public Client()

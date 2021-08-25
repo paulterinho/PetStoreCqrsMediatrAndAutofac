@@ -19,7 +19,7 @@ namespace Petstore.Swagger.Io.Common.Command
     using System = global::System;
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.13.1.0 (NJsonSchema v10.5.1.0 (Newtonsoft.Json v12.0.0.0))")]
-    [Microsoft.AspNetCore.Mvc.Route("v1")]
+    [Microsoft.AspNetCore.Mvc.Route("api")]
     public abstract class QueryControllerBase : Microsoft.AspNetCore.Mvc.ControllerBase
     {
         /// <summary>List all pets</summary>
@@ -37,7 +37,7 @@ namespace Petstore.Swagger.Io.Common.Command
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.13.1.0 (NJsonSchema v10.5.1.0 (Newtonsoft.Json v12.0.0.0))")]
-    [Microsoft.AspNetCore.Mvc.Route("v1")]
+    [Microsoft.AspNetCore.Mvc.Route("api")]
     public abstract class CommandControllerBase : Microsoft.AspNetCore.Mvc.ControllerBase
     {
         /// <summary>Create a pet</summary>

@@ -10,10 +10,11 @@ openapi: "3.0.0"
 info:
   version: 1.0.0
   title: CQRS Petstore
+  description: An example project used to show a CQRS implementation that highlights the utility of using Mediatr & Autofac's IOC container.
   license:
     name: MIT
 servers:
-  - url: http://petstore.swagger.io/v1
+  - url: https://localhost:44321/API #this will change.
 paths:
   /pets:
     get:

@@ -6,3 +6,4 @@ C:\Users\PaulWalter\Repos\IocMediatorCqrsExample\PetStore.API.Tests\obj\Debug\ne
 C:\Users\PaulWalter\Repos\IocMediatorCqrsExample\PetStore.API.Tests\obj\Debug\netcoreapp3.1\PetStore.API.Tests.csproj.CoreCompileInputs.cache
 C:\Users\PaulWalter\Repos\IocMediatorCqrsExample\PetStore.API.Tests\obj\Debug\netcoreapp3.1\PetStore.API.Tests.dll
 C:\Users\PaulWalter\Repos\IocMediatorCqrsExample\PetStore.API.Tests\obj\Debug\netcoreapp3.1\PetStore.API.Tests.pdb
+C:\Users\PaulWalter\Repos\IocMediatorCqrsExample\PetStore.API.Tests\obj\Debug\netcoreapp3.1\PetStore.API.Tests.csproj.AssemblyReference.cache

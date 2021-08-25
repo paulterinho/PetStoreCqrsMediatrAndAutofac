@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 namespace PetStore.API.Application.Command
 {
     [ApiController]
-    [Route("[controller]")]
+    [Microsoft.AspNetCore.Mvc.Route("api")]
     public class PetStoreCommandController : CommandControllerBase
     {
 
@@ -27,6 +27,7 @@ namespace PetStore.API.Application.Command
             _logger = logger;
         }
 
+        [Microsoft.AspNetCore.Mvc.HttpPost, Microsoft.AspNetCore.Mvc.Route("pets")]
         public override Task<HttpResponseMessage> CreatePet([FromBody] Pet body, CancellationToken cancellationToken = default)
         {
             throw new System.NotImplementedException();

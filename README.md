@@ -13,6 +13,9 @@ This is a example of how to leverage Mediatr and Autofac in a CQRS project.
 Please note that this is simplified, it's not illustrating how to msg between modules.        
 
 
+## API Testing
+You can use Postman to test the API. Import the `PetStore.Postman.json` from the project root.
+
 
 #### APPENDIX:
 
