@@ -3,7 +3,7 @@ using Petstore.Swagger.Io.Common.Command;
 
 namespace Petstore.Swagger.Io.Api.Application.Command
 {
-    public class CreatePetCommand : IRequest<bool>
+    public class CreatePetCommand : IRequest<Pet>
     {
         public Pet Pet { get; }
 

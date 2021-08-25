@@ -47,7 +47,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "#/components/schemas/PetStoreError"
     post:
       summary: Create a pet
       operationId: createPet
@@ -61,14 +61,18 @@ paths:
             schema:
               $ref: '#/components/schemas/Pet'
       responses:
-        '201':
-          description: Null response
+        '200':
+          description: Updated pet object. The ResourceID should be updated.
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Pet"
         default:
           description: unexpected error
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "#/components/schemas/PetStoreError"
   /pets/{petId}:
     get:
       summary: Info for a specific pet
@@ -94,7 +98,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: "#/components/schemas/Error"
+                $ref: "#/components/schemas/PetStoreError"
 components:
   schemas:
     
@@ -104,8 +108,13 @@ components:
       enum:
         - Could not create a Pet
         - Pet cannot be null
+        - Pet cannot be found
+        - Pet ID is not unique
+        - Pet Type has an invalid value
+        - Pet Type is required
+        - Pet Resource IDs do not match
     
-    PetType:
+    PetTypeValue:
       description: Type of Pet
       type: string
       enum:
@@ -132,24 +141,27 @@ components:
         name:
           type: string
         type:
-          $ref: "#/components/schemas/PetType"
+          $ref: "#/components/schemas/PetTypeValue"
     
     Pets:
       type: array
       items:
         $ref: "#/components/schemas/Pet"
     
-    Error:
+    PetStoreError:
+      description: This object is how we are communicating validation errors to the front end.  
       type: object
-      required:
-        - code
-        - message
       properties:
         code:
-          type: integer
-          format: int32
+          $ref: '#/components/schemas/PetStoreErrorValue'
+          description: Internal error code
         message:
           type: string
+        errors:             # NOTE: The following is a declaration of an IDictionary (an Associative Array). Looks like it's not, but it is.
+          type: object
+          description: A dictionary of error messages for specific fields. The keys will be the IDs of html elements that had errors. 
+          additionalProperties:
+            $ref: '#/components/schemas/PetStoreErrorValue'
 
 
 # APPENDIX:

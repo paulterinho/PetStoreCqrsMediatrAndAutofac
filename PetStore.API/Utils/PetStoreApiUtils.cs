@@ -1,13 +1,52 @@
-﻿using Petstore.Swagger.Io.Common.Command;
+﻿using Petstore.Swagger.Io.Common.Utils;
+using PetStore.Domain.Model;
+using Serilog;
 using System;
+using DomainModels = PetStore.Domain.Model;
+using SDK = Petstore.Swagger.Io.Common.Command;
 
 namespace Petstore.Swagger.Io.Api.Application.Utils
 {
     public class PetStoreApiUtils
     {
-        internal static PetStore.Domain.Model.Pet From(Pet pet)
+        public static DomainModels.Pet From(SDK.Pet pet)
         {
-            throw new NotImplementedException();
+            DomainModels.Pet sdkWaiver = null;
+            try
+            {
+                sdkWaiver = new DomainModels.Pet(pet.ResourceID, pet.Name, new PetTypeEnum(pet.Type));
+            }
+            catch (Exception exp)
+            {
+                Log.Logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
+                throw exp;
+            }
+
+            return sdkWaiver;
         }
+
+
+        public static SDK.Pet From(DomainModels.Pet changedPet)
+        {
+            SDK.Pet sdkWaiver = null;
+            try
+            {
+                sdkWaiver = new SDK.Pet()
+                {
+                    ResourceID = changedPet.ResourceID,
+                    Name = changedPet.Name,
+                    Type = changedPet.Type.EnumValue
+                };
+            }
+            catch (Exception exp)
+            {
+                Log.Logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
+                throw exp;
+            }
+
+            return sdkWaiver;
+        }
+
+
     }
 }

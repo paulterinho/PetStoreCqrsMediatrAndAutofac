@@ -36,16 +36,16 @@ namespace Petstore.Swagger.Io.Common.Query
     
         /// <summary>Create a pet</summary>
         /// <param name="body">A Pet object we wish to create</param>
-        /// <returns>Null response</returns>
+        /// <returns>Updated pet object. The ResourceID should be updated.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task CreatePetAsync(Pet body);
+        System.Threading.Tasks.Task<Pet> CreatePetAsync(Pet body);
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Create a pet</summary>
         /// <param name="body">A Pet object we wish to create</param>
-        /// <returns>Null response</returns>
+        /// <returns>Updated pet object. The ResourceID should be updated.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task CreatePetAsync(Pet body, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<Pet> CreatePetAsync(Pet body, System.Threading.CancellationToken cancellationToken);
     
         /// <summary>Info for a specific pet</summary>
         /// <param name="petId">The id of the pet to retrieve</param>
@@ -65,7 +65,7 @@ namespace Petstore.Swagger.Io.Common.Query
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.13.1.0 (NJsonSchema v10.5.1.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial class Client : IClient
     {
-        private string _baseUrl = "http://petstore.swagger.io/api";
+        private string _baseUrl = "https://localhost:44321/API";
         private System.Lazy<Newtonsoft.Json.JsonSerializerSettings> _settings;
     
         public Client()
@@ -159,12 +159,12 @@ namespace Petstore.Swagger.Io.Common.Query
                         }
                         else
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<Error>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<PetStoreError>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new ApiException<Error>("unexpected error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new ApiException<PetStoreError>("unexpected error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                     }
                     finally
@@ -183,9 +183,9 @@ namespace Petstore.Swagger.Io.Common.Query
     
         /// <summary>Create a pet</summary>
         /// <param name="body">A Pet object we wish to create</param>
-        /// <returns>Null response</returns>
+        /// <returns>Updated pet object. The ResourceID should be updated.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task CreatePetAsync(Pet body)
+        public System.Threading.Tasks.Task<Pet> CreatePetAsync(Pet body)
         {
             return CreatePetAsync(body, System.Threading.CancellationToken.None);
         }
@@ -193,9 +193,9 @@ namespace Petstore.Swagger.Io.Common.Query
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Create a pet</summary>
         /// <param name="body">A Pet object we wish to create</param>
-        /// <returns>Null response</returns>
+        /// <returns>Updated pet object. The ResourceID should be updated.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task CreatePetAsync(Pet body, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<Pet> CreatePetAsync(Pet body, System.Threading.CancellationToken cancellationToken)
         {
             if (body == null)
                 throw new System.ArgumentNullException("body");
@@ -213,6 +213,7 @@ namespace Petstore.Swagger.Io.Common.Query
                     content_.Headers.ContentType = System.Net.Http.Headers.MediaTypeHeaderValue.Parse("application/json");
                     request_.Content = content_;
                     request_.Method = new System.Net.Http.HttpMethod("POST");
+                    request_.Headers.Accept.Add(System.Net.Http.Headers.MediaTypeWithQualityHeaderValue.Parse("application/json"));
     
                     PrepareRequest(client_, request_, urlBuilder_);
     
@@ -235,18 +236,23 @@ namespace Petstore.Swagger.Io.Common.Query
                         ProcessResponse(client_, response_);
     
                         var status_ = (int)response_.StatusCode;
-                        if (status_ == 201)
+                        if (status_ == 200)
                         {
-                            return;
-                        }
-                        else
-                        {
-                            var objectResponse_ = await ReadObjectResponseAsync<Error>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<Pet>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new ApiException<Error>("unexpected error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            return objectResponse_.Object;
+                        }
+                        else
+                        {
+                            var objectResponse_ = await ReadObjectResponseAsync<PetStoreError>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            if (objectResponse_.Object == null)
+                            {
+                                throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
+                            }
+                            throw new ApiException<PetStoreError>("unexpected error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                     }
                     finally
@@ -327,12 +333,12 @@ namespace Petstore.Swagger.Io.Common.Query
                         }
                         else
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<Error>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<PetStoreError>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
                             }
-                            throw new ApiException<Error>("unexpected error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
+                            throw new ApiException<PetStoreError>("unexpected error", status_, objectResponse_.Text, headers_, objectResponse_.Object, null);
                         }
                     }
                     finally
@@ -462,11 +468,26 @@ namespace Petstore.Swagger.Io.Common.Query
         [System.Runtime.Serialization.EnumMember(Value = @"Pet cannot be null")]
         Pet_cannot_be_null = 1,
     
+        [System.Runtime.Serialization.EnumMember(Value = @"Pet cannot be found")]
+        Pet_cannot_be_found = 2,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Pet ID is not unique")]
+        Pet_ID_is_not_unique = 3,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Pet Type has an invalid value")]
+        Pet_Type_has_an_invalid_value = 4,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Pet Type is required")]
+        Pet_Type_is_required = 5,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Pet Resource IDs do not match")]
+        Pet_Resource_IDs_do_not_match = 6,
+    
     }
     
     /// <summary>Type of Pet</summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.1.0 (Newtonsoft.Json v12.0.0.0)")]
-    public enum PetType
+    public enum PetTypeValue
     {
         [System.Runtime.Serialization.EnumMember(Value = @"Cat")]
         Cat = 0,
@@ -506,7 +527,7 @@ namespace Petstore.Swagger.Io.Common.Query
         [Newtonsoft.Json.JsonProperty("type", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public PetType Type { get; set; }= default!;
+        public PetTypeValue Type { get; set; }= default!;
     
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
     
@@ -544,15 +565,21 @@ namespace Petstore.Swagger.Io.Common.Query
     
     }
     
+    /// <summary>This object is how we are communicating validation errors to the front end.</summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.1.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Error 
+    public partial class PetStoreError 
     {
-        [Newtonsoft.Json.JsonProperty("code", Required = Newtonsoft.Json.Required.Always)]
-        public int Code { get; set; }= default!;
+        /// <summary>Internal error code</summary>
+        [Newtonsoft.Json.JsonProperty("code", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public PetStoreErrorValue? Code { get; set; }= default!;
     
-        [Newtonsoft.Json.JsonProperty("message", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Message { get; set; }= default!;
+        [Newtonsoft.Json.JsonProperty("message", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public string? Message { get; set; }= default!;
+    
+        /// <summary>A dictionary of error messages for specific fields. The keys will be the IDs of html elements that had errors.</summary>
+        [Newtonsoft.Json.JsonProperty("errors", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.IDictionary<string, PetStoreErrorValue>? Errors { get; set; }= default!;
     
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
     
@@ -568,9 +595,9 @@ namespace Petstore.Swagger.Io.Common.Query
             return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
         }
     
-        public static Error FromJson(string data)
+        public static PetStoreError FromJson(string data)
         {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<Error>(data, new Newtonsoft.Json.JsonSerializerSettings());
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<PetStoreError>(data, new Newtonsoft.Json.JsonSerializerSettings());
         }
     
     }

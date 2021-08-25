@@ -1,10 +1,16 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Petstore.Swagger.Io.Api.Application.Command;
+using Petstore.Swagger.Io.Api.Application.Utils;
+using Petstore.Swagger.Io.Common;
 using Petstore.Swagger.Io.Common.Command;
 using Serilog;
+using System;
+using System.Net;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web.Http.ModelBinding;
 
 namespace PetStore.API.Application.Command
 {
@@ -28,9 +34,26 @@ namespace PetStore.API.Application.Command
         }
 
         [Microsoft.AspNetCore.Mvc.HttpPost, Microsoft.AspNetCore.Mvc.Route("pets")]
-        public override Task<HttpResponseMessage> CreatePet([FromBody] Pet body, CancellationToken cancellationToken = default)
+        public override async Task<ActionResult<Pet>> CreatePet([FromBody] Pet pet, CancellationToken cancellationToken = default)
         {
-            throw new System.NotImplementedException();
+            try
+            {
+
+                CreatePetCommand cmd = new CreatePetCommand(pet);
+                Pet updatedPet = await _mediator.Send(cmd, cancellationToken);
+
+                return Ok(updatedPet);
+            }
+            catch (PetStoreException exp)
+            {
+                return BadRequest(exp);
+            }
+            catch (Exception)
+            {
+                // it has already been logged, no need to re-log the exception
+                return StatusCode((int)HttpStatusCode.InternalServerError);
+            }
+
         }
     }
 }

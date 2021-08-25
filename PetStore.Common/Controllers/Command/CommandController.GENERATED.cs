@@ -19,32 +19,32 @@ namespace Petstore.Swagger.Io.Common.Command
     using System = global::System;
 
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.13.1.0 (NJsonSchema v10.5.1.0 (Newtonsoft.Json v12.0.0.0))")]
-    [Microsoft.AspNetCore.Mvc.Route("api")]
+    [Microsoft.AspNetCore.Mvc.Route("API")]
     public abstract class QueryControllerBase : Microsoft.AspNetCore.Mvc.ControllerBase
     {
         /// <summary>List all pets</summary>
         /// <param name="limit">How many items to return at one time (max 100)</param>
         /// <returns>A paged array of pets</returns>
         [Microsoft.AspNetCore.Mvc.HttpGet, Microsoft.AspNetCore.Mvc.Route("pets")]
-        public abstract System.Threading.Tasks.Task<System.Net.Http.HttpResponseMessage> ListPets([Microsoft.AspNetCore.Mvc.FromQuery] int? limit, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        public abstract System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.ActionResult<System.Collections.Generic.ICollection<Pet>>> ListPets([Microsoft.AspNetCore.Mvc.FromQuery] int? limit, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
     
         /// <summary>Info for a specific pet</summary>
         /// <param name="petId">The id of the pet to retrieve</param>
         /// <returns>Expected response to a valid request</returns>
         [Microsoft.AspNetCore.Mvc.HttpGet, Microsoft.AspNetCore.Mvc.Route("pets/{petId}")]
-        public abstract System.Threading.Tasks.Task<System.Net.Http.HttpResponseMessage> ShowPetById([Microsoft.AspNetCore.Mvc.ModelBinding.BindRequired] string petId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        public abstract System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.ActionResult<Pet>> ShowPetById([Microsoft.AspNetCore.Mvc.ModelBinding.BindRequired] string petId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
     
     }
     
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.13.1.0 (NJsonSchema v10.5.1.0 (Newtonsoft.Json v12.0.0.0))")]
-    [Microsoft.AspNetCore.Mvc.Route("api")]
+    [Microsoft.AspNetCore.Mvc.Route("API")]
     public abstract class CommandControllerBase : Microsoft.AspNetCore.Mvc.ControllerBase
     {
         /// <summary>Create a pet</summary>
         /// <param name="body">A Pet object we wish to create</param>
-        /// <returns>Null response</returns>
+        /// <returns>Updated pet object. The ResourceID should be updated.</returns>
         [Microsoft.AspNetCore.Mvc.HttpPost, Microsoft.AspNetCore.Mvc.Route("pets")]
-        public abstract System.Threading.Tasks.Task<System.Net.Http.HttpResponseMessage> CreatePet([Microsoft.AspNetCore.Mvc.FromBody] [Microsoft.AspNetCore.Mvc.ModelBinding.BindRequired] Pet body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        public abstract System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.ActionResult<Pet>> CreatePet([Microsoft.AspNetCore.Mvc.FromBody] [Microsoft.AspNetCore.Mvc.ModelBinding.BindRequired] Pet body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
     
     }
 
@@ -58,11 +58,26 @@ namespace Petstore.Swagger.Io.Common.Command
         [System.Runtime.Serialization.EnumMember(Value = @"Pet cannot be null")]
         Pet_cannot_be_null = 1,
     
+        [System.Runtime.Serialization.EnumMember(Value = @"Pet cannot be found")]
+        Pet_cannot_be_found = 2,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Pet ID is not unique")]
+        Pet_ID_is_not_unique = 3,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Pet Type has an invalid value")]
+        Pet_Type_has_an_invalid_value = 4,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Pet Type is required")]
+        Pet_Type_is_required = 5,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Pet Resource IDs do not match")]
+        Pet_Resource_IDs_do_not_match = 6,
+    
     }
     
     /// <summary>Type of Pet</summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.1.0 (Newtonsoft.Json v12.0.0.0)")]
-    public enum PetType
+    public enum PetTypeValue
     {
         [System.Runtime.Serialization.EnumMember(Value = @"Cat")]
         Cat = 0,
@@ -99,7 +114,7 @@ namespace Petstore.Swagger.Io.Common.Command
     
         [Newtonsoft.Json.JsonProperty("type", Required = Newtonsoft.Json.Required.Always)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public PetType Type { get; set; }
+        public PetTypeValue Type { get; set; }
     
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
     
@@ -137,14 +152,21 @@ namespace Petstore.Swagger.Io.Common.Command
     
     }
     
+    /// <summary>This object is how we are communicating validation errors to the front end.</summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.1.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Error 
+    public partial class PetStoreError 
     {
-        [Newtonsoft.Json.JsonProperty("code", Required = Newtonsoft.Json.Required.Always)]
-        public int Code { get; set; }
+        /// <summary>Internal error code</summary>
+        [Newtonsoft.Json.JsonProperty("code", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
+        public PetStoreErrorValue Code { get; set; }
     
-        [Newtonsoft.Json.JsonProperty("message", Required = Newtonsoft.Json.Required.Always)]
+        [Newtonsoft.Json.JsonProperty("message", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
         public string Message { get; set; }
+    
+        /// <summary>A dictionary of error messages for specific fields. The keys will be the IDs of html elements that had errors.</summary>
+        [Newtonsoft.Json.JsonProperty("errors", Required = Newtonsoft.Json.Required.DisallowNull, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public System.Collections.Generic.IDictionary<string, PetStoreErrorValue> Errors { get; set; }
     
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
     
@@ -160,37 +182,11 @@ namespace Petstore.Swagger.Io.Common.Command
             return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
         }
     
-        public static Error FromJson(string data)
+        public static PetStoreError FromJson(string data)
         {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<Error>(data, new Newtonsoft.Json.JsonSerializerSettings());
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<PetStoreError>(data, new Newtonsoft.Json.JsonSerializerSettings());
         }
     
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.13.1.0 (NJsonSchema v10.5.1.0 (Newtonsoft.Json v12.0.0.0))")]
-    public partial class SwaggerResponse
-    {
-        public int StatusCode { get; private set; }
-
-        public System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> Headers { get; private set; }
-
-        public SwaggerResponse(int statusCode, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers)
-        {
-            StatusCode = statusCode;
-            Headers = headers;
-        }
-    }
-
-    [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.13.1.0 (NJsonSchema v10.5.1.0 (Newtonsoft.Json v12.0.0.0))")]
-    public partial class SwaggerResponse<TResult> : SwaggerResponse
-    {
-        public TResult Result { get; private set; }
-
-        public SwaggerResponse(int statusCode, System.Collections.Generic.IReadOnlyDictionary<string, System.Collections.Generic.IEnumerable<string>> headers, TResult result)
-            : base(statusCode, headers)
-        {
-            Result = result;
-        }
     }
 
 }

@@ -12,7 +12,7 @@ using DomainModels = PetStore.Domain.Model;
 
 namespace Petstore.Swagger.Io.Api.Application.Command
 {
-    public class CreatePetCommandHandler : IRequestHandler<CreatePetCommand, bool>
+    public class CreatePetCommandHandler : IRequestHandler<CreatePetCommand, Pet>
     {
         private readonly IPetRepository _petRepository;
         private readonly ILogger _logger;
@@ -21,30 +21,26 @@ namespace Petstore.Swagger.Io.Api.Application.Command
         {
             _petRepository = petRepository ?? throw new ArgumentNullException(nameof(petRepository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
-            //TODO: we need an identity service...
         }
 
-        public async Task<bool> Handle(CreatePetCommand command, CancellationToken cancellationToken)
+        public async Task<Pet> Handle(CreatePetCommand command, CancellationToken cancellationToken)
         {
-            bool success = false;
+           Pet pet = null;
+           bool success = false;
 
             try
             {
                 DomainModels.Pet changedPet = PetStoreApiUtils.From(command.Pet);
 
-                //todo we need to get my resource id when editing a pet but not when transitioning from "unsaved" to "draft"
-                DomainModels.Pet pet = await _petRepository.GetByResourceIDAsync(changedPet.ResourceID, cancellationToken);
+                success = await _petRepository.AddAsync(changedPet);
 
-                if (pet != null)
+                if (success == false)
                 {
-                    pet.CreatePet(changedPet);
+                    throw new Exception("Unable to save to the database.");
+                }
 
-                    success = await _petRepository.UpdateAsync(pet, cancellationToken);
-                }
-                else
-                {
-                    throw new PetStoreException(PetStoreErrorValue.Pet_cannot_be_null);
-                }
+                pet = PetStoreApiUtils.From(changedPet);
+
             }
             catch (PetStoreException exp)
             {
@@ -57,7 +53,7 @@ namespace Petstore.Swagger.Io.Api.Application.Command
                 throw exp;
             }
 
-            return success;
+            return pet;
         }
     }
 }
