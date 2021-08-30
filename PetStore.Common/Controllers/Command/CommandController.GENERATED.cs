@@ -22,11 +22,15 @@ namespace Petstore.Common.Command
     [Microsoft.AspNetCore.Mvc.Route("API")]
     public abstract class QueryControllerBase : Microsoft.AspNetCore.Mvc.ControllerBase
     {
-        /// <summary>List all pets</summary>
+        /// <summary>List pets</summary>
         /// <param name="limit">How many items to return at one time (max 100)</param>
+        /// <param name="offset">Defines the "page". The size of this page is indicated by the `limit` parameter.</param>
+        /// <param name="sorts">The sort parameters. If no sort parameters specified, the default will be the pet name asc</param>
+        /// <param name="namesToFilterBy">Filter for Pets with the given name</param>
+        /// <param name="typesToFilterBy">Filter for Pets with the given name</param>
         /// <returns>A paged array of pets</returns>
         [Microsoft.AspNetCore.Mvc.HttpGet, Microsoft.AspNetCore.Mvc.Route("pets")]
-        public abstract System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.ActionResult<System.Collections.Generic.ICollection<Pet>>> ListPets([Microsoft.AspNetCore.Mvc.FromQuery] int? limit, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        public abstract System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.ActionResult<PetCollection>> ListPets([Microsoft.AspNetCore.Mvc.FromQuery] int? limit, [Microsoft.AspNetCore.Mvc.FromQuery] int? offset, [Microsoft.AspNetCore.Mvc.FromQuery] System.Collections.Generic.IEnumerable<PetSortValue> sorts, [Microsoft.AspNetCore.Mvc.FromQuery] System.Collections.Generic.IEnumerable<string> namesToFilterBy, [Microsoft.AspNetCore.Mvc.FromQuery] System.Collections.Generic.IEnumerable<string> typesToFilterBy, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
     
         /// <summary>Info for a specific pet</summary>
         /// <param name="petId">The id of the pet to retrieve</param>
@@ -114,6 +118,37 @@ namespace Petstore.Common.Command
     
     }
     
+    /// <summary>For the front end to append the correct ending for creating sort objects. _ASC = ascending, and _DESC = decending.</summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public enum PetSortType
+    {
+        [System.Runtime.Serialization.EnumMember(Value = @"_ASC")]
+        _ASC = 0,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"_DESC")]
+        _DESC = 1,
+    
+    }
+    
+    /// <summary>Fields that we can sort on for server-side sorting.</summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public enum PetSortValue
+    {
+        [System.Runtime.Serialization.EnumMember(Value = @"Name_ASC")]
+        Name_ASC = 0,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Name_DESC")]
+        Name_DESC = 1,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Type_ASC")]
+        Type_ASC = 2,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Type_DESC")]
+        Type_DESC = 3,
+    
+    }
+    
+    /// <summary>The main Entity we are interested in.</summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.1.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class Pet 
     {
@@ -149,17 +184,43 @@ namespace Petstore.Common.Command
     
     }
     
+    /// <summary>An aggregate object that allows us to pass back the paging information (including the total number of pets) for a potentially filtered collection of Pets</summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.1.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Pets : System.Collections.ObjectModel.Collection<Pet>
+    public partial class PetCollection 
     {
+        /// <summary>Offset of the collection. Which is optional.</summary>
+        [Newtonsoft.Json.JsonProperty("offset", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? Offset { get; set; }
+    
+        /// <summary>How many are in the current selection. Which is optional.</summary>
+        [Newtonsoft.Json.JsonProperty("pageSize", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        public int? PageSize { get; set; }
+    
+        /// <summary>The total number of Pets in this set.</summary>
+        [Newtonsoft.Json.JsonProperty("total", Required = Newtonsoft.Json.Required.Always)]
+        public int Total { get; set; }
+    
+        /// <summary>The returned Pets</summary>
+        [Newtonsoft.Json.JsonProperty("pets", Required = Newtonsoft.Json.Required.Always)]
+        public System.Collections.Generic.List<Pet> Pets { get; set; } = new System.Collections.Generic.List<Pet>();
+    
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+    
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+    
         public string ToJson()
         {
             return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
         }
     
-        public static Pets FromJson(string data)
+        public static PetCollection FromJson(string data)
         {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<Pets>(data, new Newtonsoft.Json.JsonSerializerSettings());
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<PetCollection>(data, new Newtonsoft.Json.JsonSerializerSettings());
         }
     
     }

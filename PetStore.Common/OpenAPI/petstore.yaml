@@ -18,7 +18,7 @@ servers:
 paths:
   /pets:
     get:
-      summary: List all pets
+      summary: List pets
       operationId: listPets
       tags:
         - query
@@ -30,6 +30,35 @@ paths:
           schema:
             type: integer
             format: int32
+        - name: offset
+          in: query
+          description: Defines the "page". The size of this page is indicated by the `limit` parameter. 
+          required: false
+          schema:
+            maximum: 100
+            type: integer
+            format: int32
+        - name: sorts
+          in: query
+          description: Comma delimited `PetSortValue` enums. If no sort parameters specified, the default will be the pet name asc
+          required: false
+          schema:
+            type: string
+            pattern: '\w+(,\w+)*' #  don't allow whitespaces around the comma
+        - name: namesToFilterBy
+          in: query
+          description: Comma delimited string of Pet Names. 
+          required: false
+          schema:
+            type: string
+            pattern: '\w+(,\w+)*' #  don't allow whitespaces around the comma
+        - name: typesToFilterBy
+          in: query
+          description: Comma delimited `PetTypeValue` enums. If no sort parameters specified, the default will be the pet name asc
+          required: false
+          schema:
+            type: string
+            pattern: '\w+(,\w+)*' #  don't allow whitespaces around the comma
       responses:
         '200':
           description: A paged array of pets
@@ -41,7 +70,7 @@ paths:
           content:
             application/json:    
               schema:
-                $ref: "#/components/schemas/Pets"
+                $ref: "#/components/schemas/PetCollection"
         default:
           description: unexpected error
           content:
@@ -133,7 +162,22 @@ components:
         - Monkey
         - Rock
         - Sloth
-    
+
+    PetSortType:
+      description: For the front end to append the correct ending for creating sort objects. _ASC = ascending, and _DESC = decending.
+      type: string
+      enum:
+        - _ASC
+        - _DESC
+
+    PetSortValue:
+      description: Fields that we can sort on for server-side sorting.
+      type: string
+      enum:        
+        - Name_ASC # name ascending
+        - Name_DESC # name descending
+        - Type_ASC
+        - Type_DESC
     
     # ============
     #   Objects
@@ -141,6 +185,7 @@ components:
 
     Pet:
       type: object
+      description: The main Entity we are interested in.
       required:
         - resourceID
         - name
@@ -157,11 +202,36 @@ components:
           nullable: true # pro tip: make your enums nullable so if they don't serialize correctly they won't default to the first enum incorrectly.
           default: null
           $ref: "#/components/schemas/PetTypeValue"
-    
-    Pets:
-      type: array
-      items:
-        $ref: "#/components/schemas/Pet"
+
+    PetCollection:
+      type: object
+      description: An aggregate object that allows us to pass back the paging information (including the total number of pets) for a potentially filtered collection of Pets
+      required:
+        - total
+        - pets
+      properties:
+        offset:
+          type: integer
+          format: int32
+          nullable: true
+          description: Offset of the collection. Which is optional.
+          minimum: 0
+        pageSize:
+          type: integer
+          format: int32
+          nullable: true
+          description: How many are in the current selection. Which is optional.
+          minimum: 0
+        total:
+          type: integer
+          format: int32
+          description: The total number of Pets in this set.
+          minimum: 0
+        pets:
+          description: The returned Pets
+          type: array
+          items:
+            $ref: "#/components/schemas/Pet"
     
     PetStoreError:
       description: This object is how we are communicating validation errors to the front end.  

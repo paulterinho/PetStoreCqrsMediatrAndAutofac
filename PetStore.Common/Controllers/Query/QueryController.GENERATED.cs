@@ -21,44 +21,30 @@ namespace Petstore.Common.Query
     [System.CodeDom.Compiler.GeneratedCode("NSwag", "13.13.1.0 (NJsonSchema v10.5.1.0 (Newtonsoft.Json v12.0.0.0))")]
     public partial interface IClient
     {
-        /// <summary>List all pets</summary>
-        /// <param name="limit">How many items to return at one time (max 100)</param>
-        /// <returns>A paged array of pets</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Pet>> ListPetsAsync(int? limit);
-    
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>List all pets</summary>
+        /// <summary>List pets</summary>
         /// <param name="limit">How many items to return at one time (max 100)</param>
+        /// <param name="offset">Defines the "page". The size of this page is indicated by the `limit` parameter.</param>
+        /// <param name="sorts">The sort parameters. If no sort parameters specified, the default will be the pet name asc</param>
+        /// <param name="namesToFilterBy">Filter for Pets with the given name</param>
+        /// <param name="typesToFilterBy">Filter for Pets with the given name</param>
         /// <returns>A paged array of pets</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Pet>> ListPetsAsync(int? limit, System.Threading.CancellationToken cancellationToken);
-    
-        /// <summary>Create a pet</summary>
-        /// <param name="body">A Pet object we wish to create</param>
-        /// <returns>Updated pet object. The ResourceID should be updated.</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Pet> CreatePetAsync(Pet body);
+        System.Threading.Tasks.Task<PetCollection> ListPetsAsync(int? limit = null, int? offset = null, System.Collections.Generic.IEnumerable<PetSortValue>? sorts = null, System.Collections.Generic.IEnumerable<string>? namesToFilterBy = null, System.Collections.Generic.IEnumerable<string>? typesToFilterBy = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Create a pet</summary>
         /// <param name="body">A Pet object we wish to create</param>
         /// <returns>Updated pet object. The ResourceID should be updated.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Pet> CreatePetAsync(Pet body, System.Threading.CancellationToken cancellationToken);
-    
-        /// <summary>Info for a specific pet</summary>
-        /// <param name="petId">The id of the pet to retrieve</param>
-        /// <returns>Expected response to a valid request</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Pet> ShowPetByIdAsync(string petId);
+        System.Threading.Tasks.Task<Pet> CreatePetAsync(Pet body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Info for a specific pet</summary>
         /// <param name="petId">The id of the pet to retrieve</param>
         /// <returns>Expected response to a valid request</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<Pet> ShowPetByIdAsync(string petId, System.Threading.CancellationToken cancellationToken);
+        System.Threading.Tasks.Task<Pet> ShowPetByIdAsync(string petId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
     
     }
     
@@ -94,27 +80,38 @@ namespace Petstore.Common.Query
         partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, string url);
         partial void PrepareRequest(System.Net.Http.HttpClient client, System.Net.Http.HttpRequestMessage request, System.Text.StringBuilder urlBuilder);
         partial void ProcessResponse(System.Net.Http.HttpClient client, System.Net.Http.HttpResponseMessage response);
-        /// <summary>List all pets</summary>
-        /// <param name="limit">How many items to return at one time (max 100)</param>
-        /// <returns>A paged array of pets</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Pet>> ListPetsAsync(int? limit)
-        {
-            return ListPetsAsync(limit, System.Threading.CancellationToken.None);
-        }
-    
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
-        /// <summary>List all pets</summary>
+        /// <summary>List pets</summary>
         /// <param name="limit">How many items to return at one time (max 100)</param>
+        /// <param name="offset">Defines the "page". The size of this page is indicated by the `limit` parameter.</param>
+        /// <param name="sorts">The sort parameters. If no sort parameters specified, the default will be the pet name asc</param>
+        /// <param name="namesToFilterBy">Filter for Pets with the given name</param>
+        /// <param name="typesToFilterBy">Filter for Pets with the given name</param>
         /// <returns>A paged array of pets</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<System.Collections.Generic.ICollection<Pet>> ListPetsAsync(int? limit, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<PetCollection> ListPetsAsync(int? limit = null, int? offset = null, System.Collections.Generic.IEnumerable<PetSortValue>? sorts = null, System.Collections.Generic.IEnumerable<string>? namesToFilterBy = null, System.Collections.Generic.IEnumerable<string>? typesToFilterBy = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/pets?");
             if (limit != null)
             {
                 urlBuilder_.Append(System.Uri.EscapeDataString("limit") + "=").Append(System.Uri.EscapeDataString(ConvertToString(limit, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (offset != null)
+            {
+                urlBuilder_.Append(System.Uri.EscapeDataString("offset") + "=").Append(System.Uri.EscapeDataString(ConvertToString(offset, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
+            }
+            if (sorts != null)
+            {
+                foreach (var item_ in sorts) { urlBuilder_.Append(System.Uri.EscapeDataString("sorts") + "=").Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append("&"); }
+            }
+            if (namesToFilterBy != null)
+            {
+                foreach (var item_ in namesToFilterBy) { urlBuilder_.Append(System.Uri.EscapeDataString("namesToFilterBy") + "=").Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append("&"); }
+            }
+            if (typesToFilterBy != null)
+            {
+                foreach (var item_ in typesToFilterBy) { urlBuilder_.Append(System.Uri.EscapeDataString("typesToFilterBy") + "=").Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append("&"); }
             }
             urlBuilder_.Length--;
     
@@ -150,7 +147,7 @@ namespace Petstore.Common.Query
                         var status_ = (int)response_.StatusCode;
                         if (status_ == 200)
                         {
-                            var objectResponse_ = await ReadObjectResponseAsync<System.Collections.Generic.ICollection<Pet>>(response_, headers_, cancellationToken).ConfigureAwait(false);
+                            var objectResponse_ = await ReadObjectResponseAsync<PetCollection>(response_, headers_, cancellationToken).ConfigureAwait(false);
                             if (objectResponse_.Object == null)
                             {
                                 throw new ApiException("Response was null which was not expected.", status_, objectResponse_.Text, headers_, null);
@@ -181,21 +178,12 @@ namespace Petstore.Common.Query
             }
         }
     
-        /// <summary>Create a pet</summary>
-        /// <param name="body">A Pet object we wish to create</param>
-        /// <returns>Updated pet object. The ResourceID should be updated.</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<Pet> CreatePetAsync(Pet body)
-        {
-            return CreatePetAsync(body, System.Threading.CancellationToken.None);
-        }
-    
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Create a pet</summary>
         /// <param name="body">A Pet object we wish to create</param>
         /// <returns>Updated pet object. The ResourceID should be updated.</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<Pet> CreatePetAsync(Pet body, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<Pet> CreatePetAsync(Pet body, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             if (body == null)
                 throw new System.ArgumentNullException("body");
@@ -269,21 +257,12 @@ namespace Petstore.Common.Query
             }
         }
     
-        /// <summary>Info for a specific pet</summary>
-        /// <param name="petId">The id of the pet to retrieve</param>
-        /// <returns>Expected response to a valid request</returns>
-        /// <exception cref="ApiException">A server side error occurred.</exception>
-        public System.Threading.Tasks.Task<Pet> ShowPetByIdAsync(string petId)
-        {
-            return ShowPetByIdAsync(petId, System.Threading.CancellationToken.None);
-        }
-    
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Info for a specific pet</summary>
         /// <param name="petId">The id of the pet to retrieve</param>
         /// <returns>Expected response to a valid request</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<Pet> ShowPetByIdAsync(string petId, System.Threading.CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task<Pet> ShowPetByIdAsync(string petId, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             if (petId == null)
                 throw new System.ArgumentNullException("petId");
@@ -524,6 +503,37 @@ namespace Petstore.Common.Query
     
     }
     
+    /// <summary>For the front end to append the correct ending for creating sort objects. _ASC = ascending, and _DESC = decending.</summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public enum PetSortType
+    {
+        [System.Runtime.Serialization.EnumMember(Value = @"_ASC")]
+        _ASC = 0,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"_DESC")]
+        _DESC = 1,
+    
+    }
+    
+    /// <summary>Fields that we can sort on for server-side sorting.</summary>
+    [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.1.0 (Newtonsoft.Json v12.0.0.0)")]
+    public enum PetSortValue
+    {
+        [System.Runtime.Serialization.EnumMember(Value = @"Name_ASC")]
+        Name_ASC = 0,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Name_DESC")]
+        Name_DESC = 1,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Type_ASC")]
+        Type_ASC = 2,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Type_DESC")]
+        Type_DESC = 3,
+    
+    }
+    
+    /// <summary>The main Entity we are interested in.</summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.1.0 (Newtonsoft.Json v12.0.0.0)")]
     public partial class Pet 
     {
@@ -561,17 +571,47 @@ namespace Petstore.Common.Query
     
     }
     
+    /// <summary>An aggregate object that allows us to pass back the paging information (including the total number of pets) for a potentially filtered collection of Pets</summary>
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.1.0 (Newtonsoft.Json v12.0.0.0)")]
-    public partial class Pets : System.Collections.ObjectModel.Collection<Pet>
+    public partial class PetCollection 
     {
+        /// <summary>Offset of the collection. Which is optional.</summary>
+        [Newtonsoft.Json.JsonProperty("offset", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [System.ComponentModel.DataAnnotations.Range(0, int.MaxValue)]
+        public int? Offset { get; set; }= default!;
+    
+        /// <summary>How many are in the current selection. Which is optional.</summary>
+        [Newtonsoft.Json.JsonProperty("pageSize", Required = Newtonsoft.Json.Required.Default, NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore)]
+        [System.ComponentModel.DataAnnotations.Range(0, int.MaxValue)]
+        public int? PageSize { get; set; }= default!;
+    
+        /// <summary>The total number of Pets in this set.</summary>
+        [Newtonsoft.Json.JsonProperty("total", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Range(0, int.MaxValue)]
+        public int Total { get; set; }= default!;
+    
+        /// <summary>The returned Pets</summary>
+        [Newtonsoft.Json.JsonProperty("pets", Required = Newtonsoft.Json.Required.Always)]
+        [System.ComponentModel.DataAnnotations.Required]
+        public System.Collections.Generic.ICollection<Pet> Pets { get; set; } = new System.Collections.ObjectModel.Collection<Pet>();
+    
+        private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
+    
+        [Newtonsoft.Json.JsonExtensionData]
+        public System.Collections.Generic.IDictionary<string, object> AdditionalProperties
+        {
+            get { return _additionalProperties; }
+            set { _additionalProperties = value; }
+        }
+    
         public string ToJson()
         {
             return Newtonsoft.Json.JsonConvert.SerializeObject(this, new Newtonsoft.Json.JsonSerializerSettings());
         }
     
-        public static Pets FromJson(string data)
+        public static PetCollection FromJson(string data)
         {
-            return Newtonsoft.Json.JsonConvert.DeserializeObject<Pets>(data, new Newtonsoft.Json.JsonSerializerSettings());
+            return Newtonsoft.Json.JsonConvert.DeserializeObject<PetCollection>(data, new Newtonsoft.Json.JsonSerializerSettings());
         }
     
     }

@@ -2,6 +2,7 @@
 using AutofacSerilogIntegration;
 using Dapper;
 using Microsoft.Extensions.Configuration;
+using PetStore.API.Application.Query.DB;
 using PetStore.Common.Utils;
 using PetStore.Domain;
 using PetStore.Infrastructure;
@@ -56,7 +57,11 @@ namespace Petstore.Api.Application.Config
             builder.RegisterType<PetRepository>()
                .As<IPetRepository>()
                .InstancePerLifetimeScope();
-
+            
+            // CQRS Queries Repository.
+            builder.RegisterType<PetStoreQueriesRepository>()
+               .As<IPetStoreQueriesRepository>()
+               .InstancePerLifetimeScope();
 
             // Entity Framework Repository
             builder.RegisterType<SecretsManager>()

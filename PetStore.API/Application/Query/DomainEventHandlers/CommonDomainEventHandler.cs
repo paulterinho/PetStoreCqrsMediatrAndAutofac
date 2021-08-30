@@ -38,7 +38,6 @@ namespace PetStores.API.Application.Queries.DomainEventHandlers
         {
             try
             {
-
                 // TODO: Get AutoMapper working
                 object dto = new
                 {
@@ -47,8 +46,6 @@ namespace PetStores.API.Application.Queries.DomainEventHandlers
                     Name = notification.PetStoreDTO.Name,
                 };
 
-
-
                 using (var connection = new SqlConnection(_connectionString))
                 {
                     await connection.OpenAsync(cancellationToken);
@@ -56,8 +53,8 @@ namespace PetStores.API.Application.Queries.DomainEventHandlers
                          INSERT INTO petQuery.Pet
                             (
                                 [ResourceID],
-                                [Type],
-                                [Name]
+                                [Name],
+                                [Type]
                             )
                          VALUES
                             (
