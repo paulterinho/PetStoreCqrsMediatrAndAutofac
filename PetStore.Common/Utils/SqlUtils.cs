@@ -63,7 +63,7 @@ namespace Petstore.Common.Utils
         public static string CreateOrderByClause<T>(IEnumerable<T> _sort, T defaultSort)
             where T : Enum
         {
-            string orderByClause = "ORDER BY ";
+            const string ORDER_BY_CLAUSE = "ORDER BY ";
             string ordersSqlStr = "";
 
             // The constants are just SQL when you remove the underscore. This can be more performant. Change if when you do.
@@ -79,10 +79,10 @@ namespace Petstore.Common.Utils
             {
 
                 // handle sorts, see if we need to append to the base SQL.
-                if (_sort.Count() < 1)
+                if ((_sort == null) || (_sort?.Count() < 1))
                 {
                     // add a default sort
-                    ordersSqlStr = GetSQL(defaultSort);//T.Name_ASC);
+                    ordersSqlStr = ORDER_BY_CLAUSE + GetSQL(defaultSort);//T.Name_ASC);
                 }
                 else
                 {
@@ -97,11 +97,9 @@ namespace Petstore.Common.Utils
 
                     var sqlStr = String.Join(", ", allTheSortClauses);
 
-                    ordersSqlStr = sqlStr;
+                    // two steps to see what's going on.
+                    ordersSqlStr += ORDER_BY_CLAUSE + sqlStr;
                 }
-
-                orderByClause += ordersSqlStr;
-
             }
             catch (Exception exp)
             {
@@ -109,7 +107,7 @@ namespace Petstore.Common.Utils
                 throw;
             }
 
-            return orderByClause;
+            return ordersSqlStr;
         }
     }
 }

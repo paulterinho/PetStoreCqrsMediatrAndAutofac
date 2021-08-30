@@ -112,7 +112,7 @@ namespace PetStore.API.Application.Query.DB
             int? offset,
             IEnumerable<PetSortValue> sorts = null,
             IEnumerable<string> namesToFilterBy = null,
-            IEnumerable<string> typesToFilterBy = null,
+            IEnumerable<PetTypeValue> typesToFilterBy = null,
             CancellationToken cancellationToken = default)
         {
             // NOTE:    Nice and sneaky: This is the name of the derived column that allows

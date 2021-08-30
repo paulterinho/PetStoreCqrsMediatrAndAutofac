@@ -25,12 +25,12 @@ namespace Petstore.Common.Query
         /// <summary>List pets</summary>
         /// <param name="limit">How many items to return at one time (max 100)</param>
         /// <param name="offset">Defines the "page". The size of this page is indicated by the `limit` parameter.</param>
-        /// <param name="sorts">The sort parameters. If no sort parameters specified, the default will be the pet name asc</param>
-        /// <param name="namesToFilterBy">Filter for Pets with the given name</param>
-        /// <param name="typesToFilterBy">Filter for Pets with the given name</param>
+        /// <param name="sorts">Comma delimited `PetSortValue` enums. If no sort parameters specified, the default will be the pet name asc</param>
+        /// <param name="namesToFilterBy">Comma delimited string of Pet Names.</param>
+        /// <param name="typesToFilterBy">Comma delimited `PetTypeValue` enums. If no sort parameters specified, the default will be the pet name asc</param>
         /// <returns>A paged array of pets</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        System.Threading.Tasks.Task<PetCollection> ListPetsAsync(int? limit = null, int? offset = null, System.Collections.Generic.IEnumerable<PetSortValue>? sorts = null, System.Collections.Generic.IEnumerable<string>? namesToFilterBy = null, System.Collections.Generic.IEnumerable<string>? typesToFilterBy = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<PetCollection> ListPetsAsync(int? limit = null, int? offset = null, string? sorts = null, string? namesToFilterBy = null, string? typesToFilterBy = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
     
         /// <param name="cancellationToken">A cancellation token that can be used by other objects or threads to receive notice of cancellation.</param>
         /// <summary>Create a pet</summary>
@@ -84,12 +84,12 @@ namespace Petstore.Common.Query
         /// <summary>List pets</summary>
         /// <param name="limit">How many items to return at one time (max 100)</param>
         /// <param name="offset">Defines the "page". The size of this page is indicated by the `limit` parameter.</param>
-        /// <param name="sorts">The sort parameters. If no sort parameters specified, the default will be the pet name asc</param>
-        /// <param name="namesToFilterBy">Filter for Pets with the given name</param>
-        /// <param name="typesToFilterBy">Filter for Pets with the given name</param>
+        /// <param name="sorts">Comma delimited `PetSortValue` enums. If no sort parameters specified, the default will be the pet name asc</param>
+        /// <param name="namesToFilterBy">Comma delimited string of Pet Names.</param>
+        /// <param name="typesToFilterBy">Comma delimited `PetTypeValue` enums. If no sort parameters specified, the default will be the pet name asc</param>
         /// <returns>A paged array of pets</returns>
         /// <exception cref="ApiException">A server side error occurred.</exception>
-        public async System.Threading.Tasks.Task<PetCollection> ListPetsAsync(int? limit = null, int? offset = null, System.Collections.Generic.IEnumerable<PetSortValue>? sorts = null, System.Collections.Generic.IEnumerable<string>? namesToFilterBy = null, System.Collections.Generic.IEnumerable<string>? typesToFilterBy = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<PetCollection> ListPetsAsync(int? limit = null, int? offset = null, string? sorts = null, string? namesToFilterBy = null, string? typesToFilterBy = null, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             var urlBuilder_ = new System.Text.StringBuilder();
             urlBuilder_.Append(BaseUrl != null ? BaseUrl.TrimEnd('/') : "").Append("/pets?");
@@ -103,15 +103,15 @@ namespace Petstore.Common.Query
             }
             if (sorts != null)
             {
-                foreach (var item_ in sorts) { urlBuilder_.Append(System.Uri.EscapeDataString("sorts") + "=").Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append("&"); }
+                urlBuilder_.Append(System.Uri.EscapeDataString("sorts") + "=").Append(System.Uri.EscapeDataString(ConvertToString(sorts, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
             if (namesToFilterBy != null)
             {
-                foreach (var item_ in namesToFilterBy) { urlBuilder_.Append(System.Uri.EscapeDataString("namesToFilterBy") + "=").Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append("&"); }
+                urlBuilder_.Append(System.Uri.EscapeDataString("namesToFilterBy") + "=").Append(System.Uri.EscapeDataString(ConvertToString(namesToFilterBy, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
             if (typesToFilterBy != null)
             {
-                foreach (var item_ in typesToFilterBy) { urlBuilder_.Append(System.Uri.EscapeDataString("typesToFilterBy") + "=").Append(System.Uri.EscapeDataString(ConvertToString(item_, System.Globalization.CultureInfo.InvariantCulture))).Append("&"); }
+                urlBuilder_.Append(System.Uri.EscapeDataString("typesToFilterBy") + "=").Append(System.Uri.EscapeDataString(ConvertToString(typesToFilterBy, System.Globalization.CultureInfo.InvariantCulture))).Append("&");
             }
             urlBuilder_.Length--;
     

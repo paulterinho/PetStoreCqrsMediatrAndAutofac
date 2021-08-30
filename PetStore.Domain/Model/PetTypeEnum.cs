@@ -1,5 +1,4 @@
-﻿using Petstore.Common;
-using Petstore.Common.Command;
+﻿using Petstore.Common.Command;
 using PetStore.Domain.Common;
 using System;
 using System.Collections.Generic;

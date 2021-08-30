@@ -21,7 +21,7 @@ namespace Petstore.Api.Application.Validator
                 // ==================================
                 //      TOP LEVEL MEMBERS
                 // ==================================
-                
+
                 // Make sure it's an empty guiud
                 RuleFor(cmd => cmd.Pet.ResourceID)
                     .Equal(new Guid())

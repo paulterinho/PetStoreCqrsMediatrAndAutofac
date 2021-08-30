@@ -25,7 +25,7 @@ namespace Petstore.API
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-           
+
             services.AddControllers(option => option.EnableEndpointRouting = false)
                 .AddNewtonsoftJson(options =>
                         options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
@@ -45,7 +45,7 @@ namespace Petstore.API
         // Don't build the container; that gets done for you by the factory.
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            
+
             new AutofacStart(Configuration, builder);
 
 

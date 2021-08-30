@@ -3,10 +3,12 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Petstore.Common;
 using Petstore.Common.Command;
+using Petstore.Common.Utils;
 using PetStore.API.Application.Query.DB;
 using Serilog;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,6 +24,10 @@ namespace PetStore.API.Application.Query
         protected readonly ILogger _logger;
         protected readonly IPetStoreQueriesRepository _petQueriesRepo;
 
+        // Enum dictionaries
+        protected readonly Dictionary<string, PetTypeValue> _petTypeDictionary;
+        protected readonly Dictionary<string, PetSortValue> _petSortDictionary;
+
         /// <summary>
         /// This constructor is for Autofac
         /// </summary>
@@ -32,20 +38,33 @@ namespace PetStore.API.Application.Query
             _mediator = mediator;
             _logger = logger;
             _petQueriesRepo = petQueriesRepo;
+
+            // initialize the dictionaries for big-0 time savings
+            _petTypeDictionary = EnumUtils.CreateDictionaryByToString<PetTypeValue>();
+            _petSortDictionary = EnumUtils.CreateDictionaryByToString<PetSortValue>();
         }
 
         [Microsoft.AspNetCore.Mvc.HttpGet, Microsoft.AspNetCore.Mvc.Route("pets")]
         public override async Task<ActionResult<PetCollection>> ListPets(
             [FromQuery] int? limit,
             [FromQuery] int? offset,
-            [FromQuery] IEnumerable<PetSortValue> sorts,
-            [FromQuery] IEnumerable<string> namesToFilterBy,
-            [FromQuery] IEnumerable<string> typesToFilterBy,
+            [FromQuery(Name = "sorts")] string sortsToUse, // if you don't specify the property name, these can show up null.
+            [FromQuery(Name = "namesToFilterBy")] string namesToFilterBy,
+            [FromQuery(Name = "typesToFilterBy")] string typesToFilterBy,
             CancellationToken cancellationToken = default(CancellationToken))
         {
+            IEnumerable<PetSortValue> sortValues;
+            IEnumerable<PetTypeValue> typeValues;
+            IEnumerable<string> nameValues;
+
             try
             {
-                PetCollection petCollection = await _petQueriesRepo.ListPets(limit, offset, sorts, namesToFilterBy, typesToFilterBy, cancellationToken);
+                // try to convert the lists
+                nameValues = namesToFilterBy?.Split(",");
+                sortValues = sortsToUse?.Split(",").Select(sort => _petSortDictionary[sort]);
+                typeValues = typesToFilterBy?.Split(",").Select(sort => _petTypeDictionary[sort]);
+
+                PetCollection petCollection = await _petQueriesRepo.ListPets(limit, offset, sortValues, nameValues, typeValues, cancellationToken);
                 return Ok(petCollection);
             }
             catch (PetStoreException exp)

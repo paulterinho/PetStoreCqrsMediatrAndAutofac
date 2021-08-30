@@ -13,7 +13,7 @@ namespace PetStore.API.Application.Query.DB
             int? offset,
             IEnumerable<PetSortValue> sorts = null,
             IEnumerable<string> namesToFilter = null,
-            IEnumerable<string> typesToFilter = null,
+            IEnumerable<PetTypeValue> typesToFilter = null,
             CancellationToken cancellationToken = default(CancellationToken));
 
         Task<Pet> ShowPetById([BindRequired] string petId,

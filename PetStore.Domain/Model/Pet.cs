@@ -14,7 +14,7 @@ namespace PetStore.Domain.Model
         {
         }
 
-        public Pet(Guid resourceID, string name, PetTypeEnum type =null)
+        public Pet(Guid resourceID, string name, PetTypeEnum type = null)
         {
             ResourceID = resourceID;
             Name = name;

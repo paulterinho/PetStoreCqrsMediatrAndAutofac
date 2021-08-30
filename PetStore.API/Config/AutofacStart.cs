@@ -61,15 +61,6 @@ namespace Petstore.Api.Application.Config
         /// </summary>
         private void postConfig(ContainerBuilder builder)
         {
-            
-            /*var contextOptions = new DbContextOptionsBuilder<PetStoreContext>()
-                .UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Test")
-                .Options;
-
-            builder
-                .RegisterType<PetStoreContext>()
-                .WithParameter("options", _Configuration.GetValue<string>(PetStoreConstants.APP_SETTINGS_PROP_CONNECTION_STRING)) // get the configuration settings from  `appsettings.json`
-                .InstancePerLifetimeScope(); */
 
             // Mediatr Request & Notification handlers
             builder.Register<ServiceFactory>(context =>
@@ -87,8 +78,8 @@ namespace Petstore.Api.Application.Config
 
             // TODO: Uncomment this line when we want to do Command Validation BEFORE it gets to the domain layer
             //
-             builder.RegisterGeneric(typeof(PetStoreValidatorPipelineBehavior<,>))
-                .As(typeof(IPipelineBehavior<,>));
+            builder.RegisterGeneric(typeof(PetStoreValidatorPipelineBehavior<,>))
+               .As(typeof(IPipelineBehavior<,>));
 
             // TODO: Uncomment this line when we have cross Microservice Transactions to deal with.
             //

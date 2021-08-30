@@ -25,12 +25,12 @@ namespace Petstore.Common.Command
         /// <summary>List pets</summary>
         /// <param name="limit">How many items to return at one time (max 100)</param>
         /// <param name="offset">Defines the "page". The size of this page is indicated by the `limit` parameter.</param>
-        /// <param name="sorts">The sort parameters. If no sort parameters specified, the default will be the pet name asc</param>
-        /// <param name="namesToFilterBy">Filter for Pets with the given name</param>
-        /// <param name="typesToFilterBy">Filter for Pets with the given name</param>
+        /// <param name="sorts">Comma delimited `PetSortValue` enums. If no sort parameters specified, the default will be the pet name asc</param>
+        /// <param name="namesToFilterBy">Comma delimited string of Pet Names.</param>
+        /// <param name="typesToFilterBy">Comma delimited `PetTypeValue` enums. If no sort parameters specified, the default will be the pet name asc</param>
         /// <returns>A paged array of pets</returns>
         [Microsoft.AspNetCore.Mvc.HttpGet, Microsoft.AspNetCore.Mvc.Route("pets")]
-        public abstract System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.ActionResult<PetCollection>> ListPets([Microsoft.AspNetCore.Mvc.FromQuery] int? limit, [Microsoft.AspNetCore.Mvc.FromQuery] int? offset, [Microsoft.AspNetCore.Mvc.FromQuery] System.Collections.Generic.IEnumerable<PetSortValue> sorts, [Microsoft.AspNetCore.Mvc.FromQuery] System.Collections.Generic.IEnumerable<string> namesToFilterBy, [Microsoft.AspNetCore.Mvc.FromQuery] System.Collections.Generic.IEnumerable<string> typesToFilterBy, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        public abstract System.Threading.Tasks.Task<Microsoft.AspNetCore.Mvc.ActionResult<PetCollection>> ListPets([Microsoft.AspNetCore.Mvc.FromQuery] int? limit, [Microsoft.AspNetCore.Mvc.FromQuery] int? offset, [Microsoft.AspNetCore.Mvc.FromQuery] string sorts, [Microsoft.AspNetCore.Mvc.FromQuery] string namesToFilterBy, [Microsoft.AspNetCore.Mvc.FromQuery] string typesToFilterBy, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
     
         /// <summary>Info for a specific pet</summary>
         /// <param name="petId">The id of the pet to retrieve</param>

@@ -57,7 +57,7 @@ namespace Petstore.Api.Application.Config
             builder.RegisterType<PetRepository>()
                .As<IPetRepository>()
                .InstancePerLifetimeScope();
-            
+
             // CQRS Queries Repository.
             builder.RegisterType<PetStoreQueriesRepository>()
                .As<IPetStoreQueriesRepository>()
