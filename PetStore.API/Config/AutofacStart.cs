@@ -1,9 +1,12 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
 using MediatR;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Petstore.Swagger.Io.Api.Application.Behavior;
 using Petstore.Swagger.Io.Common.Config;
-using System;
+using Petstore.Swagger.Io.Common.Utils;
+using PetStore.Infrastructure;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Web.Http;
@@ -15,18 +18,20 @@ namespace Petstore.Swagger.Io.Api.Application.Config
     /// </summary>
     public class AutofacStart : AutofacAndMediatrLoader
     {
-        HttpConfiguration Config;
+        HttpConfiguration _HttpConfig;
+        IConfiguration _Configuration;
 
-        public AutofacStart(ContainerBuilder builder = null, HttpConfiguration config = null) : base()
+        public AutofacStart(IConfiguration configuration, ContainerBuilder builder = null, HttpConfiguration httpConfig = null) : base()
         {
-            
-            Config = config;
+
+            _HttpConfig = httpConfig;
+            _Configuration = configuration;
 
             // Here are the modules we wish to load for the API project. 
             IEnumerable<Autofac.Module> modulesToLoad = new List<Autofac.Module>()
             {
                 new AutofacMediatorModule(),
-                new AutofacApplicationModule("Incorrect Environment") // TODO: figure out how to log the correct environment for static usages of Logger. (Log.Logger.Error())
+                new AutofacApplicationModule(_Configuration) // TODO: figure out how to log the correct environment for static usages of Logger. (Log.Logger.Error())
                 
             };
 
@@ -43,10 +48,10 @@ namespace Petstore.Swagger.Io.Api.Application.Config
             // Register your Web API controllers.
             builder.RegisterApiControllers(Assembly.GetExecutingAssembly());
 
-            if(Config!= null)
+            if (_HttpConfig != null)
             {
                 // OPTIONAL: Register the Autofac filter provider.
-                builder.RegisterWebApiFilterProvider(Config);
+                builder.RegisterWebApiFilterProvider(_HttpConfig);
             }
 
             // OPTIONAL: Register the Autofac model binder provider.
@@ -56,11 +61,19 @@ namespace Petstore.Swagger.Io.Api.Application.Config
         /// <summary>
         /// Callback that happens after we add the main depedencies ("modulesToLoad")
         /// </summary>
-        private IContainer postConfig(ContainerBuilder builder)
+        private void postConfig(ContainerBuilder builder)
         {
-            IContainer container = null;
+            
+            /*var contextOptions = new DbContextOptionsBuilder<PetStoreContext>()
+                .UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Test")
+                .Options;
 
-            // request & notification handlers
+            builder
+                .RegisterType<PetStoreContext>()
+                .WithParameter("options", _Configuration.GetValue<string>(PetStoreConstants.APP_SETTINGS_PROP_CONNECTION_STRING)) // get the configuration settings from  `appsettings.json`
+                .InstancePerLifetimeScope(); */
+
+            // Mediatr Request & Notification handlers
             builder.Register<ServiceFactory>(context =>
             {
                 var c = context.Resolve<IComponentContext>();
@@ -83,16 +96,6 @@ namespace Petstore.Swagger.Io.Api.Application.Config
 
             // Misc
             builder.RegisterAssemblyTypes(typeof(IRequest).GetTypeInfo().Assembly).AsImplementedInterfaces(); // via assembly scan
-
-            // Set the dependency resolver to be Autofac.
-            /*var container = builder.Build();
-
-            if (Config != null)
-            {
-                Config.DependencyResolver = new AutofacWebApiDependencyResolver(container);
-            }*/
-
-            return container;
         }
     }
 }

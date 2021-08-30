@@ -15,11 +15,12 @@ namespace PetStore.Infrastructure
         AbstractContext<InfraModel.Pet, PetStoreErrorValue, PetStoreContext, PetStoreException>,
         IPetStoreContext // NOTE: this is just a marker for the Autofac module. It makes it easier to read.
     {
-        public PetStoreContext(ILogger logger, SecretsManager petSecretsManager, string host = null) :
-            base(logger, petSecretsManager, host)
+        public PetStoreContext(ILogger logger, ISecretsManager petSecretsManager) :
+            base(logger, petSecretsManager)
         {
             // Magic happening in the base class.
         }
+
 
         protected override PetStoreException HandleException(Exception exception)
         {

@@ -18,15 +18,14 @@ namespace PetStores.API.Application.Queries.DomainEventHandlers
     public class CommonDomainEventHandler<T> : INotificationHandler<T>
         where T : PetStoreDomainEvent
     {
-        private readonly string connectionString = string.Empty;
+        private readonly string _connectionString = string.Empty;
         protected readonly ILogger _logger;
 
-        public CommonDomainEventHandler(ILogger logger, SecretsManager SecretsManager, string clientID = null)
+        public CommonDomainEventHandler(ILogger logger, SecretsManager SecretsManager)
         {
             try
             {
-                clientID = clientID ?? HttpContext.Current.Request.Url.Host;
-                this.connectionString = SecretsManager.GetDbConnectionString(clientID);
+                this._connectionString = SecretsManager.GetDbConnectionString();
                 _logger = logger ?? throw new ArgumentNullException(nameof(logger));
             }
             catch (Exception exp)
@@ -51,7 +50,7 @@ namespace PetStores.API.Application.Queries.DomainEventHandlers
 
 
 
-                using (var connection = new SqlConnection(connectionString))
+                using (var connection = new SqlConnection(_connectionString))
                 {
                     await connection.OpenAsync(cancellationToken);
                     var sqlStatement = @"
@@ -95,7 +94,7 @@ namespace PetStores.API.Application.Queries.DomainEventHandlers
                     Type = notification.PetStoreDTO.Type
                 };
 
-                using (var connection = new SqlConnection(connectionString))
+                using (var connection = new SqlConnection(_connectionString))
                 {
                     await connection.OpenAsync(cancellationToken);
                     var sqlStatement = @"
@@ -132,7 +131,7 @@ namespace PetStores.API.Application.Queries.DomainEventHandlers
                 bool alreadyExists = false;
 
                 // TOOD: see why this is notification handler triggering twice for one event.
-                using (var connection = new SqlConnection(connectionString))
+                using (var connection = new SqlConnection(_connectionString))
                 {
                     await connection.OpenAsync(cancellationToken);
                     var sqlStatement = @"SELECT 1 WHERE EXISTS (SELECT 1 FROM petStoreQuery.Pet WHERE ResourceID = @ResourceID)";

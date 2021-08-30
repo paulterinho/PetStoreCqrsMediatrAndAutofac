@@ -10,8 +10,8 @@
     <PackageReference Include="Autofac.WebApi2" Version="6.0.1" />
     <PackageReference Include="AutofacSerilogIntegration" Version="5.0.0" />
     <PackageReference Include="Dapper" Version="2.0.90" />
-    <PackageReference Include="FluentValidation" Version="10.3.1" />
-    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.1" />
+    <PackageReference Include="FluentValidation" Version="10.3.3" />
+    <PackageReference Include="FluentValidation.AspNetCore" Version="10.3.3" />
     <PackageReference Include="MediatR" Version="9.0.0" />
     <PackageReference Include="MediatR.Extensions.Autofac.DependencyInjection" Version="7.3.0" />
     <PackageReference Include="Microsoft.AspNet.WebApi.Core" Version="5.2.7" />
@@ -26,6 +26,7 @@
   <ItemGroup>
     <ProjectReference Include="..\Petstore.Common\Petstore.Common.csproj" />
     <ProjectReference Include="..\PetStore.Domain\PetStore.Domain.csproj" />
+    <ProjectReference Include="..\PetStore.Infrastructure\PetStore.Infrastructure.csproj" />
   </ItemGroup>
 
 

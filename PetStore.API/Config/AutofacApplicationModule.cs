@@ -1,6 +1,11 @@
 ﻿using Autofac;
 using AutofacSerilogIntegration;
 using Dapper;
+using Microsoft.Extensions.Configuration;
+using PetStore.Common.Utils;
+using PetStore.Domain;
+using PetStore.Infrastructure;
+using PetStore.Infrastructure.Repositories;
 using Serilog;
 using System;
 
@@ -8,11 +13,11 @@ namespace Petstore.Swagger.Io.Api.Application.Config
 {
     public class AutofacApplicationModule : Autofac.Module
     {
-        private string ENVIRONMENT_APP_SETTING_NAME;
+        private IConfiguration Configuration;
 
-        public AutofacApplicationModule(string appSettingName)
+        public AutofacApplicationModule(IConfiguration configuration)
         {
-            ENVIRONMENT_APP_SETTING_NAME = appSettingName;
+            Configuration = configuration;
         }
 
         protected override void Load(ContainerBuilder builder)
@@ -40,6 +45,23 @@ namespace Petstore.Swagger.Io.Api.Application.Config
                                    //                   (@see https://github.com/serilog/serilog/wiki/Formatting-Output#formatting-plain-text )
                                    //               2)  The "outputFormat" is specified in Web.config (mentioned in note A)
                 .CreateLogger();
+
+            // Entity Framework Context
+            builder
+              .RegisterType<PetStoreContext>()
+              .As<IPetStoreContext>()
+              .InstancePerLifetimeScope();
+
+            // Entity Framework Repository
+            builder.RegisterType<PetRepository>()
+               .As<IPetRepository>()
+               .InstancePerLifetimeScope();
+
+
+            // Entity Framework Repository
+            builder.RegisterType<SecretsManager>()
+               .As<ISecretsManager>()
+               .InstancePerLifetimeScope();
 
             builder.RegisterLogger(); //If no logger is explicitly passed to this function, the default Log.Logger will be used.
         }

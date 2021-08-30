@@ -1,6 +1,8 @@
 ﻿using Amazon;
 using Amazon.SecretsManager;
 using Amazon.SecretsManager.Model;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using Petstore.Swagger.Io.Common.Utils;
 using Serilog;
 using System;
@@ -10,23 +12,22 @@ namespace PetStore.Common.Utils
     /// <summary>
     /// @see https://aws.amazon.com/blogs/security/how-to-use-aws-secrets-manager-client-side-caching-in-dotnet/
     /// </summary>
-    public class SecretsManager : IGetDbConnectionString
+    public class SecretsManager : IGetDbConnectionString, ISecretsManager
     {
         private readonly ILogger _logger;
 
-        private string Environment { get; }
+        private string HostURI { get; }
 
-        private string DataBaseConnectionString;
+        private string ConnectionString { get; }
 
-        public SecretsManager(ILogger logger, string environment)
+        public SecretsManager(IConfiguration configuration, ILogger logger, string hostURI = null, string connectionString = null)
         {
             try
             {
                 _logger = logger;
 
-                // this can be null too. 
-                //System.Configuration.ConfigurationManager.RefreshSection("appSettings");
-                Environment = environment;
+                HostURI = (hostURI != null) ? hostURI : configuration.GetValue<string>(PetStoreConstants.APP_SETTINGS_PROP_HOST_URI);
+                ConnectionString = (hostURI != null) ? hostURI : configuration.GetValue<string>(PetStoreConstants.APP_SETTINGS_PROP_CONNECTION_STRING);
             }
             catch (Exception exp)
             {
@@ -110,9 +111,11 @@ namespace PetStore.Common.Utils
             return response.SecretString ?? null;
         }
 
-        public string GetDbConnectionString(string clientID)
+        public string GetDbConnectionString()
         {
-            if (DataBaseConnectionString == null)
+            /// TODO: put this stuff in AWS.
+            /// 
+            if (ConnectionString == null)
             {
 
                 ////var secretJSONString = SecretsManager.GetSecret("", RegionEndpoint.USEast1);
@@ -147,7 +150,7 @@ namespace PetStore.Common.Utils
                 throw new NotImplementedException();
             }
 
-            return DataBaseConnectionString;
+            return ConnectionString;
         }
     }
 }

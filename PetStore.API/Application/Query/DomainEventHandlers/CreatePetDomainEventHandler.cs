@@ -10,8 +10,8 @@ namespace PetStore.API.Application.Query.DomainEventHandlers
     /// </summary>
     public class CreatePetDomainEventHandler : CommonDomainEventHandler<CreatePetDomainEvent>
     {
-        public CreatePetDomainEventHandler(ILogger logger, SecretsManager waiverSecretsManager, string clientID = null) :
-            base(logger, waiverSecretsManager, clientID)
+        public CreatePetDomainEventHandler(ILogger logger, SecretsManager waiverSecretsManager) :
+            base(logger, waiverSecretsManager)
         { }
     }
 }

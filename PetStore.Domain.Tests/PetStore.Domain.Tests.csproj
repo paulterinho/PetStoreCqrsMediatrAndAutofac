@@ -16,8 +16,4 @@
     <PackageReference Include="Serilog.Sinks.Debug" Version="2.0.0" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\PetStore.Common\PetStore.Common.csproj" />
-  </ItemGroup>
-
 </Project>

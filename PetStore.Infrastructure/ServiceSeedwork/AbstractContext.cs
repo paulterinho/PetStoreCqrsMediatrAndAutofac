@@ -9,32 +9,39 @@ using Serilog;
 using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
 
 namespace PetStore.Domain.Infrastructure.Services
 {
     public abstract class AbstractContext<InfrastructureModel, ErrorEnumType, DbContextClass, ExceptionClass> : DbContext
-        where InfrastructureModel:  IDbEntity,
+        where InfrastructureModel : IDbEntity,
                                     ICreateModifyDeleteTimesUTC, // makes us use dates for updating / removing / deleting
                                     IUpdatable<InfrastructureModel>
         where ErrorEnumType : Enum  // What Error Enums we should use
         where DbContextClass : DbContext // Which DB context this is (It should be the base class using this class)
         where ExceptionClass : ResultException<ErrorEnumType> // The Exception you wish to throw. 
     {
-        
-        private readonly ILogger _logger;
 
-        public AbstractContext(ILogger logger, SecretsManager secretsManager, string host = null) :
-            base(secretsManager.GetDbConnectionString(host ?? HttpContext.Current.Request.Url.Host))
+        private readonly ILogger _logger;
+        private string ConnectionString;
+
+        public AbstractContext(ILogger logger, ISecretsManager secretsManager) :
+            base()
         {
             //disable code-first
             //Database.SetInitializer<DbContextClass>(null);
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+
+            // save for later
+            ConnectionString = secretsManager.GetDbConnectionString();
         }
 
-        public AbstractContext()
+        /// <summary>
+        /// Called at a later point @see https://www.entityframeworktutorial.net/efcore/entity-framework-core-console-application.aspx
+        /// </summary>
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            //disable code-first
-            //Database.SetInitializer<DbContextClass>(null);
+            optionsBuilder.UseSqlServer(ConnectionString);
         }
 
         public async Task<Result<ErrorEnumType>> SaveChangesResultAsync(CancellationToken cancellationToken = default)

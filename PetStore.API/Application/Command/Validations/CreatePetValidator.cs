@@ -9,9 +9,9 @@ namespace Petstore.Swagger.Io.Api.Application.Command
     /// <summary>
     /// This class exists to show how to integrate a validator into the Mediatr request pipeline. 
     /// </summary>
-    public class CreatePetValidatior : AbstractValidator<CreatePetCommand>
+    public class CreatePetValidator : AbstractValidator<CreatePetCommand>
     {
-        public CreatePetValidatior(ILogger logger)
+        public CreatePetValidator(ILogger logger)
         {
             try
             {

@@ -14,17 +14,12 @@ namespace Petstore.Swagger.Io.Common.Config
         /// <summary>
         /// Callback method for performing configuration before or after the rest of the Autofac Modules load. 
         /// </summary>
-        public delegate void LoadPreCallback(ContainerBuilder containerBuilder);
-
-        /// <summary>
-        /// Callback method for performing configuration before or after the rest of the Autofac Modules load. 
-        /// </summary>
-        public delegate IContainer LoadPostCallback(ContainerBuilder containerBuilder);
+        public delegate void LoadCallback(ContainerBuilder containerBuilder);
 
         /// <summary>
         /// Expose the builder for use in the unit tests.
         /// </summary>
-        public ContainerBuilder Builder;
+        public ContainerBuilder ContainerBuilder;
 
         /// <summary>
         /// <para>Expose the builder for use in the unit tests.</para>
@@ -49,28 +44,28 @@ namespace Petstore.Swagger.Io.Common.Config
         /// <param name="autoFacModules">The Auto Fac modules you wish to load</param>
         /// <param name="preLoadConfig">A callback that happens before the autoFacModules are loaded. </param>
         /// <param name="postLoadConfig">A callback after the autoFacModules are loaded</param>
-        public void Load(IEnumerable<Autofac.Module> autoFacModules, LoadPreCallback preLoadConfig = null, LoadPostCallback postLoadConfig = null, ContainerBuilder builder = null)
+        public void Load(IEnumerable<Autofac.Module> autoFacModules, LoadCallback preLoadConfig = null, LoadCallback postLoadConfig = null, ContainerBuilder builder = null)
         {
             try
             {
-                Builder = (builder == null) ? new ContainerBuilder() : builder;
+                ContainerBuilder = (builder == null) ? new ContainerBuilder() : builder;
 
                 // Initialize the module
                 if (preLoadConfig != null)
                 {
-                    preLoadConfig(Builder);
+                    preLoadConfig(ContainerBuilder);
                 }
 
                 // 1) Add the autofact modules
                 foreach (Autofac.Module module in autoFacModules)
                 {
-                    Builder.RegisterModule(module);
+                    ContainerBuilder.RegisterModule(module);
                 }
 
                 // complete the configuration
                 if (postLoadConfig != null)
                 {
-                    Container = postLoadConfig(Builder);
+                    postLoadConfig(ContainerBuilder);
                 }
 
             }
