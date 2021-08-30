@@ -9,7 +9,12 @@ namespace PetStore.Domain.Model
 {
     public partial class Pet : Entity, IAggregateRoot
     {
-        public Pet(Guid resourceID, string name, PetTypeEnum type)
+
+        public Pet()
+        {
+        }
+
+        public Pet(Guid resourceID, string name, PetTypeEnum type =null)
         {
             ResourceID = resourceID;
             Name = name;
@@ -17,10 +22,10 @@ namespace PetStore.Domain.Model
         }
 
         public string Name { get; private set; }
-        public PetTypeEnum Type { get; private set; }
+        public PetTypeEnum? Type { get; private set; }
 
 
-        public PetStoreDomainResponse _SetType(PetTypeEnum type)
+        public PetStoreDomainResponse _SetType(PetTypeEnum? type)
         {
             PetStoreDomainResponse response = new PetStoreDomainResponse();
             try
@@ -41,7 +46,7 @@ namespace PetStore.Domain.Model
             catch (Exception exp)
             {
                 Log.Logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
 
             return response;
@@ -68,7 +73,34 @@ namespace PetStore.Domain.Model
             catch (Exception exp)
             {
                 Log.Logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
+            }
+
+            return response;
+        }
+
+        public PetStoreDomainResponse _SetResourceID(Guid resourceID)
+        {
+            PetStoreDomainResponse response = new PetStoreDomainResponse();
+            try
+            {
+                bool enumMissing = resourceID == default;
+
+                if (enumMissing)
+                {
+                    response.Errors.Add(nameof(Type), PetStoreErrorValue.Pet_Resource_ID_is_required);
+                }
+
+                if (response.Success)
+                {
+                    ResourceID = resourceID;
+                }
+
+            }
+            catch (Exception exp)
+            {
+                Log.Logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
+                throw;
             }
 
             return response;

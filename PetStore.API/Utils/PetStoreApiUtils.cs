@@ -14,12 +14,14 @@ namespace Petstore.Api.Application.Utils
             DomainModels.Pet sdkWaiver = null;
             try
             {
-                sdkWaiver = new DomainModels.Pet(pet.ResourceID, pet.Name, new PetTypeEnum(pet.Type));
+                sdkWaiver = new DomainModels.Pet(
+                    pet.ResourceID, pet.Name,
+                    (pet.Type != null) ? PetTypeEnum.FromName(pet.Type?.ToString()) : null); // can be null
             }
             catch (Exception exp)
             {
                 Log.Logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
 
             return sdkWaiver;
@@ -41,7 +43,7 @@ namespace Petstore.Api.Application.Utils
             catch (Exception exp)
             {
                 Log.Logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
 
             return sdkWaiver;

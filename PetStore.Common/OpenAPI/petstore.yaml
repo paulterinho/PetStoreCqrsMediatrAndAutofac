@@ -10,7 +10,7 @@ openapi: "3.0.0"
 info:
   version: 1.0.0
   title: CQRS Petstore
-  description: An example project used to show a CQRS implementation that highlights the utility of using Mediatr & Autofac's IOC container.
+  description: An example project used to show a CQRS implementation that highlights the utility of using Mediatr, Autofac's IOC container, OpenAPI's scaffolding abilities, and general CQRS ideas.
   license:
     name: MIT
 servers:
@@ -102,32 +102,43 @@ paths:
 components:
   schemas:
     
+    # ============
+    #   ENUMS
+    # ============
+
     PetStoreErrorValue:
       description: List of all errors you'll encounter with PetStore
       type: string
-      enum:
+      enum:        
         - Could not create a Pet
-        - Pet cannot be null
         - Pet cannot be found
+        - Pet cannot be null
         - Pet ID is not unique
+        - Pet Name is required
+        - Pet Resource ID must be 00000000-0000-0000-0000-000000000000 when creating a Pet
+        - Pet Resource IDs do not match
+        - Pet Resource ID is required
         - Pet Type has an invalid value
         - Pet Type is required
-        - Pet Resource IDs do not match
-        - Pet Resource ID must be 00000000-0000-0000-0000-000000000000 when creating a Pet
         - PetStore has the following validation errors
 
     PetTypeValue:
       description: Type of Pet
       type: string
-      enum:
+      enum:        
+        - Bat
         - Cat
         - Dog
-        - Sloth
-        - Monkey
         - Goat
-        - Bat
+        - Monkey
         - Rock
+        - Sloth
     
+    
+    # ============
+    #   Objects
+    # ============
+
     Pet:
       type: object
       required:
@@ -143,6 +154,8 @@ components:
         name:
           type: string
         type:
+          nullable: true # pro tip: make your enums nullable so if they don't serialize correctly they won't default to the first enum incorrectly.
+          default: null
           $ref: "#/components/schemas/PetTypeValue"
     
     Pets:

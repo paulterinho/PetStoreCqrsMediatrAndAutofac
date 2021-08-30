@@ -27,16 +27,18 @@ namespace Petstore.Api.Application.Command
         {
             Pet pet = null;
             bool success = false;
+            DomainModels.Pet newPet = null;
+            DomainModels.Pet existingPet = null;
 
             try
             {
-                // create a new guid
-                command.Pet.ResourceID = Guid.NewGuid();
+                newPet = PetStoreApiUtils.From(command.Pet);
 
-                // convert it from an API object to a Domain Model 
-                DomainModels.Pet domainModel = PetStoreApiUtils.From(command.Pet);
+                existingPet = new DomainModels.Pet();
 
-                success = await _petRepository.AddAsync(domainModel);
+                existingPet.CreatePet(newPet);
+
+                success = await _petRepository.AddAsync(existingPet);
 
                 if (success == false)
                 {
@@ -44,18 +46,18 @@ namespace Petstore.Api.Application.Command
                 }
 
                 // convert it back to an API object
-                pet = PetStoreApiUtils.From(domainModel);
+                pet = PetStoreApiUtils.From(existingPet);
 
             }
             catch (PetStoreException exp)
             {
                 _logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
             catch (Exception exp)
             {
                 _logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
 
             return pet;

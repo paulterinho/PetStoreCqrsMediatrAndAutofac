@@ -38,7 +38,7 @@ namespace PetStore.Domain.Common
             catch (Exception exp)
             {
                 Log.Logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT);
-                throw exp;
+                throw;
             }
         }
 

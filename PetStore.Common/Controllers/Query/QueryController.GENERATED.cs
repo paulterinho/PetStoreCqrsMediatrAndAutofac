@@ -465,29 +465,35 @@ namespace Petstore.Common.Query
         [System.Runtime.Serialization.EnumMember(Value = @"Could not create a Pet")]
         Could_not_create_a_Pet = 0,
     
-        [System.Runtime.Serialization.EnumMember(Value = @"Pet cannot be null")]
-        Pet_cannot_be_null = 1,
-    
         [System.Runtime.Serialization.EnumMember(Value = @"Pet cannot be found")]
-        Pet_cannot_be_found = 2,
+        Pet_cannot_be_found = 1,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Pet cannot be null")]
+        Pet_cannot_be_null = 2,
     
         [System.Runtime.Serialization.EnumMember(Value = @"Pet ID is not unique")]
         Pet_ID_is_not_unique = 3,
     
-        [System.Runtime.Serialization.EnumMember(Value = @"Pet Type has an invalid value")]
-        Pet_Type_has_an_invalid_value = 4,
+        [System.Runtime.Serialization.EnumMember(Value = @"Pet Name is required")]
+        Pet_Name_is_required = 4,
     
-        [System.Runtime.Serialization.EnumMember(Value = @"Pet Type is required")]
-        Pet_Type_is_required = 5,
+        [System.Runtime.Serialization.EnumMember(Value = @"Pet Resource ID must be 00000000-0000-0000-0000-000000000000 when creating a Pet")]
+        Pet_Resource_ID_must_be_00000000000000000000000000000000_when_creating_a_Pet = 5,
     
         [System.Runtime.Serialization.EnumMember(Value = @"Pet Resource IDs do not match")]
         Pet_Resource_IDs_do_not_match = 6,
     
-        [System.Runtime.Serialization.EnumMember(Value = @"Pet Resource ID must be 00000000-0000-0000-0000-000000000000 when creating a Pet")]
-        Pet_Resource_ID_must_be_00000000000000000000000000000000_when_creating_a_Pet = 7,
+        [System.Runtime.Serialization.EnumMember(Value = @"Pet Resource ID is required")]
+        Pet_Resource_ID_is_required = 7,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Pet Type has an invalid value")]
+        Pet_Type_has_an_invalid_value = 8,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Pet Type is required")]
+        Pet_Type_is_required = 9,
     
         [System.Runtime.Serialization.EnumMember(Value = @"PetStore has the following validation errors")]
-        PetStore_has_the_following_validation_errors = 8,
+        PetStore_has_the_following_validation_errors = 10,
     
     }
     
@@ -495,26 +501,26 @@ namespace Petstore.Common.Query
     [System.CodeDom.Compiler.GeneratedCode("NJsonSchema", "10.5.1.0 (Newtonsoft.Json v12.0.0.0)")]
     public enum PetTypeValue
     {
+        [System.Runtime.Serialization.EnumMember(Value = @"Bat")]
+        Bat = 0,
+    
         [System.Runtime.Serialization.EnumMember(Value = @"Cat")]
-        Cat = 0,
+        Cat = 1,
     
         [System.Runtime.Serialization.EnumMember(Value = @"Dog")]
-        Dog = 1,
-    
-        [System.Runtime.Serialization.EnumMember(Value = @"Sloth")]
-        Sloth = 2,
-    
-        [System.Runtime.Serialization.EnumMember(Value = @"Monkey")]
-        Monkey = 3,
+        Dog = 2,
     
         [System.Runtime.Serialization.EnumMember(Value = @"Goat")]
-        Goat = 4,
+        Goat = 3,
     
-        [System.Runtime.Serialization.EnumMember(Value = @"Bat")]
-        Bat = 5,
+        [System.Runtime.Serialization.EnumMember(Value = @"Monkey")]
+        Monkey = 4,
     
         [System.Runtime.Serialization.EnumMember(Value = @"Rock")]
-        Rock = 6,
+        Rock = 5,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Sloth")]
+        Sloth = 6,
     
     }
     
@@ -530,10 +536,9 @@ namespace Petstore.Common.Query
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
         public string Name { get; set; }= default!;
     
-        [Newtonsoft.Json.JsonProperty("type", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
+        [Newtonsoft.Json.JsonProperty("type", Required = Newtonsoft.Json.Required.AllowNull)]
         [Newtonsoft.Json.JsonConverter(typeof(Newtonsoft.Json.Converters.StringEnumConverter))]
-        public PetTypeValue Type { get; set; }= default!;
+        public PetTypeValue? Type { get; set; }= default!;
     
         private System.Collections.Generic.IDictionary<string, object> _additionalProperties = new System.Collections.Generic.Dictionary<string, object>();
     

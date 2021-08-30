@@ -29,7 +29,7 @@ namespace PetStore.Domain.Common
             catch (Exception exp)
             {
                 Log.Logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
         }
 
@@ -42,7 +42,7 @@ namespace PetStore.Domain.Common
             catch (Exception exp)
             {
                 Log.Logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
         }
     }

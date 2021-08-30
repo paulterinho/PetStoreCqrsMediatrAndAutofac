@@ -26,6 +26,17 @@ namespace Petstore.Api.Application.Validator
                 RuleFor(cmd => cmd.Pet.ResourceID)
                     .Equal(new Guid())
                     .WithErrorCode(PetStoreErrorValue.Pet_Resource_ID_must_be_00000000000000000000000000000000_when_creating_a_Pet.ToString());
+
+                // Make sure name isn't empty
+                RuleFor(cmd => cmd.Pet.Name)
+                    .NotEqual(string.Empty)
+                    .WithErrorCode(PetStoreErrorValue.Pet_Name_is_required.ToString());
+
+                // make sure type isn't empty
+                RuleFor(cmd => cmd.Pet.Type)
+                    .NotNull()
+                    .WithErrorCode(PetStoreErrorValue.Pet_Name_is_required.ToString());
+
             }
         }
     }

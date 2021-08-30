@@ -32,10 +32,6 @@ CREATE TABLE [petQuery].[Pet](
 	[ResourceID] [uniqueidentifier] NOT NULL,
 	[Name] [nvarchar](200) NULL,
 	[Type] [nvarchar](200) NULL,
-	
-	[CreatedDateTimeUTC] [datetime2](7) NOT NULL,
-	[ModifiedDateTimeUTC] [datetime2](7) NOT NULL,
-	[RemovedDateTimeUTC] [datetime2](7) NULL,
 
 ) ON [PRIMARY]
 GO

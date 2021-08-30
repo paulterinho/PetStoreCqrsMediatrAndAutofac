@@ -28,8 +28,10 @@ namespace PetStore.Domain.Model
         public static IEnumerable<PetTypeEnum> List() =>
             new[] { Bat, Cat, Dog, Goat, Monkey, Rock, Sloth };
 
-        public static PetTypeEnum FromName(string name)
+        public static PetTypeEnum? FromName(string name)
         {
+            PetTypeEnum? returnType = null;
+
             if (name != null)
             {
                 var state = List()
@@ -37,11 +39,11 @@ namespace PetStore.Domain.Model
 
                 if (state != null)
                 {
-                    return state;
+                    returnType = state;
                 }
             }
 
-            throw new PetStoreException(PetStoreErrorValue.Pet_Type_has_an_invalid_value, null, PetStoreErrorValue.Pet_Type_has_an_invalid_value.ToString());
+            return returnType;
         }
     }
 }

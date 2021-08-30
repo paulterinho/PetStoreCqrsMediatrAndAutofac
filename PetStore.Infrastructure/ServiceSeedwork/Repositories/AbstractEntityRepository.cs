@@ -82,39 +82,36 @@ namespace PetStore.Domain.Infrastructure.Repositories
         public abstract DbSet<InfrastructrueModel> GetMainDbSet();
 
 
-        public async Task<bool> AddAsync(DomainModel obj, CancellationToken token = default(CancellationToken))
+        public async Task<bool> AddAsync(DomainModel domainModel, CancellationToken token = default(CancellationToken))
         {
             bool success = false;
             Result<ErrorEnum> result;
 
             try
             {
-                InfrastructrueModel convertedPetStore = From(obj);
+                InfrastructrueModel infraModel = From(domainModel);
 
                 // Update the Times
-                convertedPetStore.CreatedDateTimeUTC = DateTime.UtcNow;
-                convertedPetStore.ModifiedDateTimeUTC = DateTime.UtcNow;
+                infraModel.CreatedDateTimeUTC = DateTime.UtcNow;
+                infraModel.ModifiedDateTimeUTC = DateTime.UtcNow;
 
                 // So this funky thing is a callback to the subclass. (It's calling itself!)
                 DbSet<InfrastructrueModel> mainDbSet = GetMainDbSet();
-                mainDbSet.Add(convertedPetStore);
+                mainDbSet.Add(infraModel);
 
                 result = await _context.SaveChangesResultAsync(token);
 
-                // Call back to the subclass who has implemented this method.
-                obj = From(convertedPetStore);
-
-                await DispatchDomainEventsOrThrowError(result, obj);
+                await DispatchDomainEventsOrThrowError(result, domainModel);
                 success = !result.IsFailure;
             }
             catch (Exception exp)
             {
                 _logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
             finally
             {
-                ClearDomainEvents(obj);
+                ClearDomainEvents(domainModel);
             }
 
             return success;
@@ -152,7 +149,7 @@ namespace PetStore.Domain.Infrastructure.Repositories
             catch (Exception exp)
             {
                 _logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
             finally
             {
@@ -188,7 +185,7 @@ namespace PetStore.Domain.Infrastructure.Repositories
             catch (Exception exp)
             {
                 _logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
             finally
             {
@@ -222,7 +219,7 @@ namespace PetStore.Domain.Infrastructure.Repositories
             catch (Exception exp)
             {
                 _logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
             finally
             {
@@ -266,7 +263,7 @@ namespace PetStore.Domain.Infrastructure.Repositories
                 // @see https://stackoverflow.com/questions/32615330/handling-errors-exceptions-in-a-mediator-pipeline-using-cqrs
                 //
                 _logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
             finally
             {
@@ -293,7 +290,7 @@ namespace PetStore.Domain.Infrastructure.Repositories
             catch (Exception exp)
             {
                 _logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
 
             return returnPetStores;
@@ -318,7 +315,7 @@ namespace PetStore.Domain.Infrastructure.Repositories
             catch (Exception exp)
             {
                 _logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
 
             return returnPetStore;

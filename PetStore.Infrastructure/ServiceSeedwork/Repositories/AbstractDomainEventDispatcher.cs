@@ -64,7 +64,7 @@ namespace ServiceSeedwork.Repositories
             catch (Exception exp)
             {
                 _logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
         }
 
@@ -86,7 +86,7 @@ namespace ServiceSeedwork.Repositories
             catch (Exception exp)
             {
                 _logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
         }
 
@@ -102,7 +102,7 @@ namespace ServiceSeedwork.Repositories
             catch (Exception exp)
             {
                 _logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
         }
 
@@ -118,7 +118,7 @@ namespace ServiceSeedwork.Repositories
             catch (Exception exp)
             {
                 _logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
         }
     }

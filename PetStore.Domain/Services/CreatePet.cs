@@ -9,7 +9,7 @@ namespace PetStore.Domain.Model
     public partial class Pet
         : Entity, IAggregateRoot
     {
-        public PetStoreDomainResponse CreatePet(Pet pet)
+        public void CreatePet(Pet pet)
         {
             PetStoreDomainResponse response = new PetStoreDomainResponse();
 
@@ -20,6 +20,9 @@ namespace PetStore.Domain.Model
                 response.Errors.Add(nameof(ResourceID), PetStoreErrorValue.Pet_Resource_IDs_do_not_match);
             }
 
+            PetStoreDomainResponse setResourceID = _SetResourceID(System.Guid.NewGuid());
+            response.AddErrors(setResourceID.Errors);
+
             PetStoreDomainResponse setName = _SetName(pet.Name);
             response.AddErrors(setName.Errors);
 
@@ -27,8 +30,6 @@ namespace PetStore.Domain.Model
 
             // Add an event to potentially dispatch later.
             AddSaveDomainEvent(this);
-
-            return response;
         }
 
         /// <summary>

@@ -50,7 +50,7 @@ namespace Petstore.Common.Utils
             catch (Exception exp)
             {
                 Log.Logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
             return clause;
         }
@@ -106,7 +106,7 @@ namespace Petstore.Common.Utils
             catch (Exception exp)
             {
                 Log.Logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
 
             return orderByClause;

@@ -34,7 +34,7 @@ namespace PetStore.Infrastructure
             catch (Exception exp)
             {
                 Log.Logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
 
             return returnPet;
@@ -59,7 +59,7 @@ namespace PetStore.Infrastructure
             catch (Exception exp)
             {
                 Log.Logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
 
             return returnPet;

@@ -1,6 +1,5 @@
 ﻿using Dapper;
 using MediatR;
-using Microsoft.AspNetCore.Http;
 using Petstore.Common.Utils;
 using PetStore.Common.Utils;
 using PetStore.Domain.Events;
@@ -21,7 +20,7 @@ namespace PetStores.API.Application.Queries.DomainEventHandlers
         private readonly string _connectionString = string.Empty;
         protected readonly ILogger _logger;
 
-        public CommonDomainEventHandler(ILogger logger, SecretsManager SecretsManager)
+        public CommonDomainEventHandler(ILogger logger, ISecretsManager SecretsManager)
         {
             try
             {
@@ -31,7 +30,7 @@ namespace PetStores.API.Application.Queries.DomainEventHandlers
             catch (Exception exp)
             {
                 _logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT);
-                throw exp;
+                throw;
             }
         }
 
@@ -54,16 +53,15 @@ namespace PetStores.API.Application.Queries.DomainEventHandlers
                 {
                     await connection.OpenAsync(cancellationToken);
                     var sqlStatement = @"
-                               INSERT INTO petStoreQuery.PetStore
-                               (
-                                  
+                         INSERT INTO petQuery.Pet
+                            (
                                 [ResourceID],
                                 [Type],
                                 [Name]
                             )
                          VALUES
-                               (@ResourceID,
-                                @ID,
+                            (
+                                @ResourceID,
                                 @Name,
                                 @Type
                             )
@@ -76,7 +74,7 @@ namespace PetStores.API.Application.Queries.DomainEventHandlers
             catch (Exception exp)
             {
                 _logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT);
-                throw exp;
+                throw;
             }
         }
 
@@ -98,9 +96,8 @@ namespace PetStores.API.Application.Queries.DomainEventHandlers
                 {
                     await connection.OpenAsync(cancellationToken);
                     var sqlStatement = @"
-                           UPDATE petStoreQuery.PetStore
+                           UPDATE petQuery.Pet
                            SET
-                               
                                 [PetStoreID] = @PetStoreID,  
                                 [Name] = @Name,  
                                 [Type] = @Type
@@ -113,7 +110,7 @@ namespace PetStores.API.Application.Queries.DomainEventHandlers
             catch (Exception exp)
             {
                 _logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT);
-                throw exp;
+                throw;
             }
         }
 
@@ -134,7 +131,7 @@ namespace PetStores.API.Application.Queries.DomainEventHandlers
                 using (var connection = new SqlConnection(_connectionString))
                 {
                     await connection.OpenAsync(cancellationToken);
-                    var sqlStatement = @"SELECT 1 WHERE EXISTS (SELECT 1 FROM petStoreQuery.Pet WHERE ResourceID = @ResourceID)";
+                    var sqlStatement = @"SELECT 1 WHERE EXISTS (SELECT 1 FROM petQuery.Pet WHERE ResourceID = @ResourceID)";
                     alreadyExists = await connection.ExecuteScalarAsync<bool>(sqlStatement, new { ResourceID = notification.PetStoreDTO.ResourceID });
                 }
 
@@ -150,7 +147,7 @@ namespace PetStores.API.Application.Queries.DomainEventHandlers
             catch (Exception exp)
             {
                 _logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT);
-                throw exp;
+                throw;
             }
         }
     }

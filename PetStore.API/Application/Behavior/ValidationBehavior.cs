@@ -75,7 +75,7 @@ namespace Petstore.Api.Application.Behavior
             catch (Exception exp)
             {
                 _logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
 
             return await next();

@@ -56,7 +56,7 @@ namespace PetStore.Infrastructure.Models
             catch (Exception exp)
             {
                 Log.Logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
         }
 
@@ -94,7 +94,7 @@ namespace PetStore.Infrastructure.Models
             catch (Exception exp)
             {
                 Log.Logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
         }
 

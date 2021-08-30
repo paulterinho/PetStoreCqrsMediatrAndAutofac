@@ -39,7 +39,7 @@ namespace Petstore.Common.Utils
             catch (Exception exp)
             {
                 Log.Logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
 
             return enumMemberValueStr;
@@ -72,7 +72,7 @@ namespace Petstore.Common.Utils
             catch (Exception exp)
             {
                 Log.Logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
 
             return returnEnum;
@@ -107,7 +107,7 @@ namespace Petstore.Common.Utils
             catch (Exception exp)
             {
                 Log.Logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
 
             return returnEnums.Count > 0 ? returnEnums : null;
@@ -132,7 +132,7 @@ namespace Petstore.Common.Utils
             catch (Exception exp)
             {
                 Log.Logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
 
             return dict;
@@ -158,7 +158,7 @@ namespace Petstore.Common.Utils
             catch (Exception exp)
             {
                 Log.Logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
 
             return dict;
@@ -189,7 +189,7 @@ namespace Petstore.Common.Utils
             catch (Exception exp)
             {
                 Log.Logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
 
             return dict;
@@ -221,7 +221,7 @@ namespace Petstore.Common.Utils
             catch (Exception exp)
             {
                 Log.Logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
         }
 
@@ -236,7 +236,7 @@ namespace Petstore.Common.Utils
             catch (Exception exp)
             {
                 Log.Logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                throw;
             }
         }
 

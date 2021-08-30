@@ -59,7 +59,7 @@ namespace PetStore.Domain.Infrastructure.Services
                 // if we can't find an error, throw the actual db
                 if (error == null)
                 {
-                    throw exp;
+                    throw;
                 }
 
                 return await Result<ErrorEnumType>.Failure(error);
