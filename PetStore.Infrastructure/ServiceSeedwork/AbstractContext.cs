@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
-using Petstore.Swagger.Io.Common.Utils;
+using Petstore.Common.Utils;
 using PetStore.Domain.Common;
 using PetStore.Common.Utils;
 using PetStore.Domain.Infrastructure.Common;

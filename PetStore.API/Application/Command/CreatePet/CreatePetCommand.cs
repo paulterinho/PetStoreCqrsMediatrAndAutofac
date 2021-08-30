@@ -1,7 +1,7 @@
 ﻿using MediatR;
-using Petstore.Swagger.Io.Common.Command;
+using Petstore.Common.Command;
 
-namespace Petstore.Swagger.Io.Api.Application.Command
+namespace Petstore.Api.Application.Command
 {
     public class CreatePetCommand : IRequest<Pet>
     {

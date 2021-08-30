@@ -1,4 +1,4 @@
-﻿using Petstore.Swagger.Io.Common.Command;
+﻿using Petstore.Common.Command;
 using PetStore.Domain.Common;
 
 namespace PetStore.Domain.Models

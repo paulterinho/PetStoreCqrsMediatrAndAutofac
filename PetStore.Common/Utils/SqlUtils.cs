@@ -3,7 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Petstore.Swagger.Io.Common.Utils
+namespace Petstore.Common.Utils
 {
     public class SqlUtils
     {

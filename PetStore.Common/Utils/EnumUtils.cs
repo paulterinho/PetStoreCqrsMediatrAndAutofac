@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 
-namespace Petstore.Swagger.Io.Common.Utils
+namespace Petstore.Common.Utils
 {
     /// <summary>
     /// C# makes it difficult to get the EnumMember.Value property for String Enums. This utility makes it easier to deal with.

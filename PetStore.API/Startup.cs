@@ -1,19 +1,11 @@
 using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using Petstore.Swagger.Io.Api.Application.Config;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+using Petstore.Api.Application.Config;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace Petstore.API
 {
@@ -34,13 +26,17 @@ namespace Petstore.API
         public void ConfigureServices(IServiceCollection services)
         {
            
-            services.AddControllers(option => option.EnableEndpointRouting = false).AddJsonOptions(options =>
-            {
-                // NOTE:    You need this line to properly serialize String Enums that are contained in
-                //          a POST request. Otherwise you have to send their int value.
-                //
-                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
-            });
+            services.AddControllers(option => option.EnableEndpointRouting = false)
+                .AddNewtonsoftJson(options =>
+                        options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+                 )
+                .AddJsonOptions(options =>
+                {
+                    // NOTE:    You need this line to properly serialize String Enums that are contained in
+                    //          a POST request. Otherwise you have to send their int value.
+                    //
+                    options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                });
         }
 
         // ConfigureContainer is where you can register things directly

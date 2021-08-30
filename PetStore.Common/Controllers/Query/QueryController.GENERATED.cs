@@ -14,7 +14,7 @@
 #pragma warning disable 8073 // Disable "CS8073 The result of the expression is always 'false' since a value of type 'T' is never equal to 'null' of type 'T?'"
 #pragma warning disable 3016 // Disable "CS3016 Arrays as attribute arguments is not CLS-compliant"
 
-namespace Petstore.Swagger.Io.Common.Query
+namespace Petstore.Common.Query
 {
     using System = global::System;
 
@@ -482,6 +482,12 @@ namespace Petstore.Swagger.Io.Common.Query
     
         [System.Runtime.Serialization.EnumMember(Value = @"Pet Resource IDs do not match")]
         Pet_Resource_IDs_do_not_match = 6,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"Pet Resource ID must be 00000000-0000-0000-0000-000000000000 when creating a Pet")]
+        Pet_Resource_ID_must_be_00000000000000000000000000000000_when_creating_a_Pet = 7,
+    
+        [System.Runtime.Serialization.EnumMember(Value = @"PetStore has the following validation errors")]
+        PetStore_has_the_following_validation_errors = 8,
     
     }
     

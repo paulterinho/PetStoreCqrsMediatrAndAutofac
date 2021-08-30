@@ -1,39 +1,31 @@
 ﻿using FluentValidation;
-using Petstore.Swagger.Io.Common.Utils;
-using Serilog;
+using Petstore.Api.Application.Command;
+using Petstore.Common.Command;
 using System;
 
-namespace Petstore.Swagger.Io.Api.Application.Command
+namespace Petstore.Api.Application.Validator
 {
 
-    /// <summary>
-    /// This class exists to show how to integrate a validator into the Mediatr request pipeline. 
-    /// </summary>
-    public class CreatePetValidator : AbstractValidator<CreatePetCommand>
+    namespace WaiverRequests.API.Application.Validators
     {
-        public CreatePetValidator(ILogger logger)
+        /// <summary>
+        /// Fluent Validator syntax checker. This is only for correct syntax, not for business rules (which will get checked in the Domain Layer)
+        /// 
+        /// @see https://docs.fluentvalidation.net/en/latest/conditions.html
+        /// 
+        /// </summary>
+        public class CreatePetValidator : AbstractValidator<CreatePetCommand>
         {
-            try
+            public CreatePetValidator()
             {
-                //TODO FUTURE TBD
-
-                // NOTE, here we can do syntax checking for a request BEFORE a domain object is even marshalled (PetStore). 
-                /*
-                        RuleFor(command => command.PetStore.ResourceID).NotEmpty();
-
-                        // other examples of what Fluent Validator can do.
-                        RuleFor(command => command.CardNumber).NotEmpty().Length(12, 19);
-                        RuleFor(command => command.CardHolderName).NotEmpty();
-                        RuleFor(command => command.CardExpiration).NotEmpty().Must(BeValidExpirationDate).WithMessage("Please specify a valid card expiration date");
-                        RuleFor(command => command.CardSecurityNumber).NotEmpty().Length(3);
-                        RuleFor(command => command.CardTypeId).NotEmpty();
-                        RuleFor(command => command.OrderItems).Must(ContainOrderItems).WithMessage("No order items found");
-                */
-            }
-            catch (Exception exp)
-            {
-                logger.Error(exp, PetStoreConstants.ERROR_LOGGING_FORMAT, exp.Message);
-                throw exp;
+                // ==================================
+                //      TOP LEVEL MEMBERS
+                // ==================================
+                
+                // Make sure it's an empty guiud
+                RuleFor(cmd => cmd.Pet.ResourceID)
+                    .Equal(new Guid())
+                    .WithErrorCode(PetStoreErrorValue.Pet_Resource_ID_must_be_00000000000000000000000000000000_when_creating_a_Pet.ToString());
             }
         }
     }

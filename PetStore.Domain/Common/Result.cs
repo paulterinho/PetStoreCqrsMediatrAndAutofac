@@ -1,4 +1,4 @@
-﻿using Petstore.Swagger.Io.Common.Utils;
+﻿using Petstore.Common.Utils;
 using System;
 using System.Threading.Tasks;
 

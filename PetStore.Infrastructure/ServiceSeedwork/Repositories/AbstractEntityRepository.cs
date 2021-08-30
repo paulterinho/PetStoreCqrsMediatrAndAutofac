@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Petstore.Swagger.Io.Common.Utils;
+using Petstore.Common.Utils;
 using PetStore.Domain.Common;
 using PetStore.Domain.Infrastructure.Common;
 using PetStore.Domain.Infrastructure.Models;

@@ -1,11 +1,11 @@
-﻿using Petstore.Swagger.Io.Common.Utils;
+﻿using Petstore.Common.Utils;
 using PetStore.Domain.Model;
 using Serilog;
 using System;
 using DomainModels = PetStore.Domain.Model;
-using SDK = Petstore.Swagger.Io.Common.Command;
+using SDK = Petstore.Common.Command;
 
-namespace Petstore.Swagger.Io.Api.Application.Utils
+namespace Petstore.Api.Application.Utils
 {
     public class PetStoreApiUtils
     {

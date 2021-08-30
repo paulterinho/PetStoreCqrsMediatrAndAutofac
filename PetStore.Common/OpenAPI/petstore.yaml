@@ -113,7 +113,9 @@ components:
         - Pet Type has an invalid value
         - Pet Type is required
         - Pet Resource IDs do not match
-    
+        - Pet Resource ID must be 00000000-0000-0000-0000-000000000000 when creating a Pet
+        - PetStore has the following validation errors
+
     PetTypeValue:
       description: Type of Pet
       type: string

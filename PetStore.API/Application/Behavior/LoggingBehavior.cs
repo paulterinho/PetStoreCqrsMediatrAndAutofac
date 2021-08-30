@@ -8,7 +8,7 @@ using Serilog;
 //       using Microsoft.Extensions.Logging;
 //       using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Extensions;
 
-namespace Petstore.Swagger.Io.Api.Application.Behavior
+namespace Petstore.Api.Application.Behavior
 {
     /// <summary>
     /// So this class is part of the messaging pipeline. Anytime you send a Command, 

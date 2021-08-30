@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace Petstore.Swagger.Io.Common.Utils
+namespace Petstore.Common.Utils
 {
 
 

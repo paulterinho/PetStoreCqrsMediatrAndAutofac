@@ -9,7 +9,7 @@ using PetStore.Infrastructure.Repositories;
 using Serilog;
 using System;
 
-namespace Petstore.Swagger.Io.Api.Application.Config
+namespace Petstore.Api.Application.Config
 {
     public class AutofacApplicationModule : Autofac.Module
     {

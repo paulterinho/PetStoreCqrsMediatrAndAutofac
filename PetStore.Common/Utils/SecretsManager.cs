@@ -3,7 +3,7 @@ using Amazon.SecretsManager;
 using Amazon.SecretsManager.Model;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Petstore.Swagger.Io.Common.Utils;
+using Petstore.Common.Utils;
 using Serilog;
 using System;
 

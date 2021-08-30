@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace Petstore.Swagger.Io.Common.Utils
+namespace Petstore.Common.Utils
 {
     public class PetStoreConstants
     {

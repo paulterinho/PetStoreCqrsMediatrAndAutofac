@@ -1,5 +1,5 @@
-﻿using Petstore.Swagger.Io.Common;
-using Petstore.Swagger.Io.Common.Command;
+﻿using Petstore.Common;
+using Petstore.Common.Command;
 using PetStore.Domain.Common;
 using System;
 using System.Collections.Generic;

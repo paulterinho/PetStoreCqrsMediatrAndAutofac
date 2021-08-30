@@ -1,7 +1,7 @@
 ﻿using Dapper;
 using MediatR;
 using Microsoft.AspNetCore.Http;
-using Petstore.Swagger.Io.Common.Utils;
+using Petstore.Common.Utils;
 using PetStore.Common.Utils;
 using PetStore.Domain.Events;
 using Serilog;

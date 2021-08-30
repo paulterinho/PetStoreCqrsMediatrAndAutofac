@@ -1,8 +1,8 @@
 ﻿using MediatR;
-using Petstore.Swagger.Io.Api.Application.Utils;
-using Petstore.Swagger.Io.Common;
-using Petstore.Swagger.Io.Common.Command;
-using Petstore.Swagger.Io.Common.Utils;
+using Petstore.Api.Application.Utils;
+using Petstore.Common;
+using Petstore.Common.Command;
+using Petstore.Common.Utils;
 using PetStore.Domain;
 using Serilog;
 using System;
@@ -10,7 +10,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using DomainModels = PetStore.Domain.Model;
 
-namespace Petstore.Swagger.Io.Api.Application.Command
+namespace Petstore.Api.Application.Command
 {
     public class CreatePetCommandHandler : IRequestHandler<CreatePetCommand, Pet>
     {
@@ -25,21 +25,26 @@ namespace Petstore.Swagger.Io.Api.Application.Command
 
         public async Task<Pet> Handle(CreatePetCommand command, CancellationToken cancellationToken)
         {
-           Pet pet = null;
-           bool success = false;
+            Pet pet = null;
+            bool success = false;
 
             try
             {
-                DomainModels.Pet changedPet = PetStoreApiUtils.From(command.Pet);
+                // create a new guid
+                command.Pet.ResourceID = Guid.NewGuid();
 
-                success = await _petRepository.AddAsync(changedPet);
+                // convert it from an API object to a Domain Model 
+                DomainModels.Pet domainModel = PetStoreApiUtils.From(command.Pet);
+
+                success = await _petRepository.AddAsync(domainModel);
 
                 if (success == false)
                 {
                     throw new Exception("Unable to save to the database.");
                 }
 
-                pet = PetStoreApiUtils.From(changedPet);
+                // convert it back to an API object
+                pet = PetStoreApiUtils.From(domainModel);
 
             }
             catch (PetStoreException exp)

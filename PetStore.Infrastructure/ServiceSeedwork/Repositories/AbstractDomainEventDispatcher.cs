@@ -1,5 +1,5 @@
 ﻿using MediatR;
-using Petstore.Swagger.Io.Common.Utils;
+using Petstore.Common.Utils;
 using PetStore.Domain.Common;
 using Serilog;
 using System;

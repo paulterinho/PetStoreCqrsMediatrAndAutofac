@@ -1,13 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Petstore.Swagger.Io.Common;
-using Petstore.Swagger.Io.Common.Command;
+using Petstore.Common;
+using Petstore.Common.Command;
 using PetStore.Common.Utils;
 using PetStore.Domain.Infrastructure.Services;
 using Serilog;
 using System;
 using System.Collections.Generic;
 using InfraModel = PetStore.Infrastructure.Models;
-using SDK = Petstore.Swagger.Io.Common.Command;
+using SDK = Petstore.Common.Command;
 
 namespace PetStore.Infrastructure
 {

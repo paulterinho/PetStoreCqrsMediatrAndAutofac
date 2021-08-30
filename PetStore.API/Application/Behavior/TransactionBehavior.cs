@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 //using Microsoft.eShopOnContainers.BuildingBlocks.EventBus.Extensions;
 //using Microsoft.eShopOnContainers.Services.PetStoreInfrastructure;
 
-namespace Petstore.Swagger.Io.Api.Application.Behavior
+namespace Petstore.Api.Application.Behavior
 {
     public class TransactionBehaviour<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     {

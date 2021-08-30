@@ -1,10 +1,9 @@
-﻿using PetStore.Domain.Model;
+﻿using Petstore.Common.Command;
+using Petstore.Common.Utils;
 using PetStore.Domain.Common;
-using System;
 using PetStore.Domain.Models;
 using Serilog;
-using Petstore.Swagger.Io.Common.Utils;
-using Petstore.Swagger.Io.Common.Command;
+using System;
 
 namespace PetStore.Domain.Model
 {

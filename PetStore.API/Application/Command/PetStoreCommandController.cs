@@ -1,16 +1,13 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
-using Petstore.Swagger.Io.Api.Application.Command;
-using Petstore.Swagger.Io.Api.Application.Utils;
-using Petstore.Swagger.Io.Common;
-using Petstore.Swagger.Io.Common.Command;
+using Petstore.Api.Application.Command;
+using Petstore.Common;
+using Petstore.Common.Command;
 using Serilog;
 using System;
 using System.Net;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
-using System.Web.Http.ModelBinding;
 
 namespace PetStore.API.Application.Command
 {

@@ -1,12 +1,13 @@
 ﻿using Autofac;
 using FluentValidation;
 using MediatR;
-using Petstore.Swagger.Io.Api.Application.Command;
+using Petstore.Api.Application.Command;
+using Petstore.Api.Application.Validator.WaiverRequests.API.Application.Validators;
 using PetStore.API.Application.Query.DomainEventHandlers;
 using PetStore.Domain.Events;
 using System.Reflection;
 
-namespace Petstore.Swagger.Io.Api.Application.Config
+namespace Petstore.Api.Application.Config
 {
     public class AutofacMediatorModule : Autofac.Module
     {
@@ -47,7 +48,10 @@ namespace Petstore.Swagger.Io.Api.Application.Config
             // Misc
             //
             builder
-                .RegisterAssemblyTypes(typeof(PetStoreEventDTO).GetTypeInfo().Assembly).AsImplementedInterfaces();
+                .RegisterAssemblyTypes(typeof(PetStoreEventDTO).GetTypeInfo().Assembly)
+                .AsImplementedInterfaces();
+
+
         }
     }
 }

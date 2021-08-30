@@ -1,6 +1,6 @@
 ﻿using MediatR;
 using Microsoft.EntityFrameworkCore;
-using Petstore.Swagger.Io.Common.Command;
+using Petstore.Common.Command;
 using PetStore.Domain;
 using PetStore.Domain.Infrastructure.Repositories;
 using Serilog;

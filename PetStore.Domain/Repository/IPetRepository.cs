@@ -1,4 +1,4 @@
-﻿using SDK = Petstore.Swagger.Io.Common.Command;
+﻿using SDK = Petstore.Common.Command;
 using PetStore.Domain.Common;
 using PetStore.Domain.Model;
 

@@ -1,6 +1,6 @@
 ﻿using FluentValidation;
 using MediatR;
-using Petstore.Swagger.Io.Common.Utils;
+using Petstore.Common.Utils;
 using Serilog;
 using System;
 using System.Linq;
@@ -13,7 +13,7 @@ using System.Threading.Tasks;
 //      using Microsoft.Extensions.Logging;
 //      using Ordering.Domain.Exceptions;
 
-namespace Petstore.Swagger.Io.Api.Application.Behavior
+namespace Petstore.Api.Application.Behavior
 {
 
 

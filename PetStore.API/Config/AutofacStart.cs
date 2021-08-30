@@ -1,17 +1,15 @@
 ﻿using Autofac;
 using Autofac.Integration.WebApi;
 using MediatR;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
-using Petstore.Swagger.Io.Api.Application.Behavior;
-using Petstore.Swagger.Io.Common.Config;
-using Petstore.Swagger.Io.Common.Utils;
-using PetStore.Infrastructure;
+using Petstore.Api.Application.Behavior;
+using Petstore.API.Application.Validators;
+using Petstore.Common.Config;
 using System.Collections.Generic;
 using System.Reflection;
 using System.Web.Http;
 
-namespace Petstore.Swagger.Io.Api.Application.Config
+namespace Petstore.Api.Application.Config
 {
     /// <summary>
     /// Class that will encapsulate the configuration for Mediatr and Autofac in the API project (And tests projects). 
@@ -84,11 +82,13 @@ namespace Petstore.Swagger.Io.Api.Application.Config
             // - requests & handlers as transient, i.e. InstancePerDependency()
             // - pre/post-processors as scoped/per-request, i.e. InstancePerLifetimeScope()
             // - behaviors as transient, i.e. InstancePerDependency()
-            builder.RegisterGeneric(typeof(LoggingBehavior<,>)).As(typeof(IPipelineBehavior<,>));
+            builder.RegisterGeneric(typeof(LoggingBehavior<,>))
+                .As(typeof(IPipelineBehavior<,>));
 
             // TODO: Uncomment this line when we want to do Command Validation BEFORE it gets to the domain layer
             //
-            //      builder.RegisterGeneric(typeof(ValidatorBehavior<,>)).As(typeof(IPipelineBehavior<,>));
+             builder.RegisterGeneric(typeof(PetStoreValidatorPipelineBehavior<,>))
+                .As(typeof(IPipelineBehavior<,>));
 
             // TODO: Uncomment this line when we have cross Microservice Transactions to deal with.
             //

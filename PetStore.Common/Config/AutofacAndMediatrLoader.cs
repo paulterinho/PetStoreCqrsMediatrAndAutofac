@@ -2,9 +2,9 @@
 using Serilog;
 using System;
 using System.Collections.Generic;
-using Petstore.Swagger.Io.Common.Utils;
+using Petstore.Common.Utils;
 
-namespace Petstore.Swagger.Io.Common.Config
+namespace Petstore.Common.Config
 {
     /// <summary>
     /// This is a class which will act like the "Glue" of propertly configuring a Test suite or Module for properly using Autofact to load dependencies.

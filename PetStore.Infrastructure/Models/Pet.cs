@@ -1,4 +1,4 @@
-﻿using Petstore.Swagger.Io.Common.Utils;
+﻿using Petstore.Common.Utils;
 using PetStore.Domain.Infrastructure.Common;
 using PetStore.Domain.Infrastructure.Models;
 using Serilog;

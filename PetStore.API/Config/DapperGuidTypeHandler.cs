@@ -2,7 +2,7 @@
 using System;
 using System.Data;
 
-namespace Petstore.Swagger.Io.Api.Application.Config
+namespace Petstore.Api.Application.Config
 {
 
     /// <summary>
