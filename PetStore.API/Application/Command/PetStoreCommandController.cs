@@ -35,7 +35,6 @@ namespace PetStore.API.Application.Command
         {
             try
             {
-
                 CreatePetCommand cmd = new CreatePetCommand(pet);
                 Pet updatedPet = await _mediator.Send(cmd, cancellationToken);
 

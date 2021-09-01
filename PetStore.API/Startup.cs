@@ -45,10 +45,7 @@ namespace Petstore.API
         // Don't build the container; that gets done for you by the factory.
         public void ConfigureContainer(ContainerBuilder builder)
         {
-
             new AutofacStart(Configuration, builder);
-
-
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

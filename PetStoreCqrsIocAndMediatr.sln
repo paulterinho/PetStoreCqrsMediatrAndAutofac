@@ -14,7 +14,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B59875DA-92C3-4849-BA5A-78B733CEF6B2}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
-		PetStore.Postman.json = PetStore.Postman.json
 		README.md = README.md
 	EndProjectSection
 EndProject
@@ -22,7 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetStore.Infrastructure", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetStore.Infrastructure.Tests", "PetStore.Infrastructure.Tests\PetStore.Infrastructure.Tests.csproj", "{F64DB1B0-4FCA-4EFB-BA25-572021394C47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PetStore.Domain.Tests", "PetStore.Domain.Tests\PetStore.Domain.Tests.csproj", "{C563605E-67BD-46E6-8387-B7464421FA51}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetStore.Domain.Tests", "PetStore.Domain.Tests\PetStore.Domain.Tests.csproj", "{C563605E-67BD-46E6-8387-B7464421FA51}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetStore.OpenAPI", "PetStore.OpenAPI3\PetStore.OpenAPI.csproj", "{C27FB439-DCD9-4AC3-AF2E-356496420536}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -58,6 +59,10 @@ Global
 		{C563605E-67BD-46E6-8387-B7464421FA51}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C563605E-67BD-46E6-8387-B7464421FA51}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C563605E-67BD-46E6-8387-B7464421FA51}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C27FB439-DCD9-4AC3-AF2E-356496420536}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C27FB439-DCD9-4AC3-AF2E-356496420536}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C27FB439-DCD9-4AC3-AF2E-356496420536}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C27FB439-DCD9-4AC3-AF2E-356496420536}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

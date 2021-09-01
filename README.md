@@ -8,13 +8,8 @@
  \_|  \___|\__| \____/ \__\___/|_|  \___|
 </pre>                                         
  
-This is a example of how to leverage Mediatr and Autofac in a CQRS project.
+Based on the Microsoft eShops example (see appendix below), this is a simpler example of how to leverage Mediatr and Autofac in a CQRS project.
 
-Please note that this is simplified, it's not illustrating how to msg between modules.        
-
-
-## API Testing
-You can use Postman to test the API. Import the `PetStore.Postman.json` from the project root.
 
 ## Highlights
 ### Autofac
@@ -26,7 +21,9 @@ Check out the `Startup.cs` to see where this begins, and follow it's trail to th
 Also, DotNet 3+ has it's own IOC container built in. It may not be necessary to use Autofac. 
 
 ### MediatR
-"MediatR Pattern/Library is used to reduce dependencies between objects. It allows in-process messaging,but it will not allow direct communication between objects. Instead of this it forces to communicate via MediatR only, such as classes that don't have dependencies on each other, that's why they are less coupled."
+"MediatR Pattern/Library is used to reduce dependencies between objects. 
+
+It allows in-process messaging,but it will not allow direct communication between objects. Instead of this it forces to communicate via MediatR only, such as classes that don't have dependencies on each other, that's why they are less coupled." (See quote url in Appendix)
 
 #### Pipelines (Logging, Validation, Transactions)
 In addition to the benefits of Inversion of control, you can also use Mediatr's Pipelines to address things like logging, validation, and even authentication if you wanted to. 
@@ -51,11 +48,16 @@ This is an elegant library to ensure your business rules are being followed. Che
 ### CQRS
 Check out the Microsoft Articles on CQRS, and especially look at the eShops reference project they've posted (see appendix).
 
+### OpenAPI
+I've scaffolded the API & it's serializable objects via NSwag Studio using an OpenAPI document. Check out this document in `PetStore.OpenAPI`
+
 #### APPENDIX:
 
+- Author's Github: https://github.com/paulito-bandito
 - ASCI Font URL: https://patorjk.com/software/taag/#p=display&f=Doom&t=Paul%20likes%20to%20move%20it%20move%20it
 - Autofac:https://autofac.org/
 - Fluent Validation: https://fluentvalidation.net/
 - Mediator: https://github.com/jbogard/MediatR
 - MediatR Quote: https://www.c-sharpcorner.com/article/introduction-to-mediatr-pattern/
+- Microsoft CQRS & DDD Howto: https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/apply-simplified-microservice-cqrs-ddd-patterns
 - Microsoft eShops: https://docs.microsoft.com/en-us/dotnet/architecture/cloud-native/introduce-eshoponcontainers-reference-app

@@ -59,7 +59,7 @@ namespace PetStore.API.Application.Query
 
             try
             {
-                // try to convert the lists
+                // try to convert the lists using dictionaries (Big-O time savings!)
                 nameValues = namesToFilterBy?.Split(",");
                 sortValues = sortsToUse?.Split(",").Select(sort => _petSortDictionary[sort]);
                 typeValues = typesToFilterBy?.Split(",").Select(sort => _petTypeDictionary[sort]);
