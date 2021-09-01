@@ -1,7 +1,8 @@
 {
 	"info": {
-		"_postman_id": "07ac102e-c2c3-4c06-9535-896913dce722",
-		"name": "Swagger Petstore",
+		"_postman_id": "46f33eb2-5c03-4e36-be80-8bbf1c40988d",
+		"name": "CQRS Petstore",
+		"description": "An example project used to show a CQRS implementation that highlights the utility of using Mediatr, Autofac's IOC container, OpenAPI's scaffolding abilities, and general CQRS ideas.",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
@@ -9,12 +10,12 @@
 			"name": "pets",
 			"item": [
 				{
-					"name": "List all pets",
+					"name": "List pets",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{baseUrl}}/pets?limit=-97389501",
+							"raw": "{{baseUrl}}/pets",
 							"host": [
 								"{{baseUrl}}"
 							],
@@ -24,8 +25,51 @@
 							"query": [
 								{
 									"key": "limit",
-									"value": "-97389501",
-									"description": "How many items to return at one time (max 100)"
+									"value": "3",
+									"description": "How many items to return at one time (max 100)",
+									"disabled": true
+								},
+								{
+									"key": "offset",
+									"value": "1",
+									"description": "Defines the \"page\". The size of this page is indicated by the `limit` parameter.",
+									"disabled": true
+								},
+								{
+									"key": "sorts",
+									"value": "Name_DESC, Name_DESC",
+									"description": "The sort parameters. If no sort parameters specified, the default will be the pet name asc",
+									"disabled": true
+								},
+								{
+									"key": "sorts",
+									"value": "test",
+									"description": "The sort parameters. If no sort parameters specified, the default will be the pet name asc",
+									"disabled": true
+								},
+								{
+									"key": "namesToFilterBy",
+									"value": "Sammy",
+									"description": "Filter for Pets with the given name",
+									"disabled": true
+								},
+								{
+									"key": "namesToFilterBy",
+									"value": "culpa ex Excepteur et",
+									"description": "Filter for Pets with the given name",
+									"disabled": true
+								},
+								{
+									"key": "typesToFilterBy",
+									"value": "Dog",
+									"description": "Filter for Pets with the given name",
+									"disabled": true
+								},
+								{
+									"key": "typesToFilterBy",
+									"value": "culpa ex Excepteur et",
+									"description": "Filter for Pets with the given name",
+									"disabled": true
 								}
 							]
 						}
@@ -37,7 +81,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/pets?limit=-97389501",
+									"raw": "{{baseUrl}}/pets?limit=-87196795&offset=-92888836&sorts=Type_ASC&sorts=Name_DESC&namesToFilterBy=occaecat exercitation Ut&namesToFilterBy=tempor &typesToFilterBy=occaecat exercitation Ut&typesToFilterBy=tempor ",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -47,7 +91,35 @@
 									"query": [
 										{
 											"key": "limit",
-											"value": "-97389501"
+											"value": "-87196795"
+										},
+										{
+											"key": "offset",
+											"value": "-92888836"
+										},
+										{
+											"key": "sorts",
+											"value": "Type_ASC"
+										},
+										{
+											"key": "sorts",
+											"value": "Name_DESC"
+										},
+										{
+											"key": "namesToFilterBy",
+											"value": "occaecat exercitation Ut"
+										},
+										{
+											"key": "namesToFilterBy",
+											"value": "tempor "
+										},
+										{
+											"key": "typesToFilterBy",
+											"value": "occaecat exercitation Ut"
+										},
+										{
+											"key": "typesToFilterBy",
+											"value": "tempor "
 										}
 									]
 								}
@@ -58,7 +130,7 @@
 							"header": [
 								{
 									"key": "x-next",
-									"value": "sunt exercitation Excepteur adipisicing",
+									"value": "id ",
 									"description": "A link to the next page of responses"
 								},
 								{
@@ -67,7 +139,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "[\n {\n  \"resourceID\": \"cf74f57c-0756-5367-f11c-ca190629a202\",\n  \"name\": \"in dolore Excepteur\",\n  \"type\": \"Goat\"\n },\n {\n  \"resourceID\": \"urn:uuid:aa760d47-eec0-563e-ee54-8f5746ae0977\",\n  \"name\": \"eu amet irure et\",\n  \"type\": \"Rock\"\n }\n]"
+							"body": "{\n \"total\": 94873753,\n \"pets\": [\n  {\n   \"resourceID\": \"urn:uuid:1e3aa462-0ac6-688d-825e-71ad2e334d88\",\n   \"name\": \"laboris anim magna reprehenderit\",\n   \"type\": \"Dog\"\n  },\n  {\n   \"resourceID\": \"urn:uuid:bf660301-c9e6-f502-6acf-b5e276d9dd8e\",\n   \"name\": \"reprehenderit est\",\n   \"type\": \"Sloth\"\n  }\n ],\n \"offset\": 7798131,\n \"pageSize\": 72232756\n}"
 						},
 						{
 							"name": "unexpected error",
@@ -75,7 +147,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/pets?limit=-97389501",
+									"raw": "{{baseUrl}}/pets?limit=-87196795&offset=-92888836&sorts=Type_ASC&sorts=Name_DESC&namesToFilterBy=occaecat exercitation Ut&namesToFilterBy=tempor &typesToFilterBy=occaecat exercitation Ut&typesToFilterBy=tempor ",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -85,7 +157,35 @@
 									"query": [
 										{
 											"key": "limit",
-											"value": "-97389501"
+											"value": "-87196795"
+										},
+										{
+											"key": "offset",
+											"value": "-92888836"
+										},
+										{
+											"key": "sorts",
+											"value": "Type_ASC"
+										},
+										{
+											"key": "sorts",
+											"value": "Name_DESC"
+										},
+										{
+											"key": "namesToFilterBy",
+											"value": "occaecat exercitation Ut"
+										},
+										{
+											"key": "namesToFilterBy",
+											"value": "tempor "
+										},
+										{
+											"key": "typesToFilterBy",
+											"value": "occaecat exercitation Ut"
+										},
+										{
+											"key": "typesToFilterBy",
+											"value": "tempor "
 										}
 									]
 								}
@@ -100,7 +200,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n \"code\": -88628865,\n \"message\": \"dolor Duis mollit eiusmod\"\n}"
+							"body": "{\n \"code\": \"Pet cannot be null\",\n \"message\": \"laborum\",\n \"errors\": {}\n}"
 						}
 					]
 				},
@@ -116,7 +216,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n    \"resourceID\": \"00000000-0000-0000-0000-000000000000\",\n    \"name\": \"si\",\n    \"type\": 1\n}"
+							"raw": "{\n    \"resourceID\": \"00000000-0000-0000-0000-000000000000\",\n    \"name\": \"Betty\",\n    \"type\": \"Bat\"\n}"
 						},
 						"url": {
 							"raw": "{{baseUrl}}/pets",
@@ -130,13 +230,13 @@
 					},
 					"response": [
 						{
-							"name": "Null response",
+							"name": "Updated pet object. The ResourceID should be updated.",
 							"originalRequest": {
 								"method": "POST",
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"name\": \"si\",\n    \"type\": \"Sloth\",\n    \"laborum86\": 73311476.32557532\n}"
+									"raw": "{\n    \"name\": \"ut enim in occaecat\",\n    \"type\": \"Sloth\",\n    \"utcfb\": false\n}"
 								},
 								"url": {
 									"raw": "{{baseUrl}}/pets",
@@ -148,17 +248,17 @@
 									]
 								}
 							},
-							"status": "Created",
-							"code": 201,
-							"_postman_previewlanguage": "text",
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
 							"header": [
 								{
 									"key": "Content-Type",
-									"value": "text/plain"
+									"value": "application/json"
 								}
 							],
 							"cookie": [],
-							"body": ""
+							"body": "{\n \"resourceID\": \"2692b44c-66d4-3857-9b3c-883c88d9db53\",\n \"name\": \"cupidatat aliqua dolore anim\",\n \"type\": \"Rock\"\n}"
 						},
 						{
 							"name": "unexpected error",
@@ -167,7 +267,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\n    \"name\": \"si\",\n    \"type\": \"Sloth\",\n    \"laborum86\": 73311476.32557532\n}"
+									"raw": "{\n    \"name\": \"ut enim in occaecat\",\n    \"type\": \"Sloth\",\n    \"utcfb\": false\n}"
 								},
 								"url": {
 									"raw": "{{baseUrl}}/pets",
@@ -189,7 +289,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n \"code\": -88628865,\n \"message\": \"dolor Duis mollit eiusmod\"\n}"
+							"body": "{\n \"code\": \"Pet cannot be null\",\n \"message\": \"laborum\",\n \"errors\": {}\n}"
 						}
 					]
 				},
@@ -210,7 +310,7 @@
 							"variable": [
 								{
 									"key": "petId",
-									"value": "sunt exercitation Excepteur adipisicing",
+									"value": "id ",
 									"description": "(Required) The id of the pet to retrieve"
 								}
 							]
@@ -248,7 +348,7 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n \"resourceID\": \"c1d93a8f-15e3-f30d-138c-ff7f9fb8448a\",\n \"name\": \"in Ut laborum null\",\n \"type\": \"Sloth\"\n}"
+							"body": "{\n \"resourceID\": \"2692b44c-66d4-3857-9b3c-883c88d9db53\",\n \"name\": \"cupidatat aliqua dolore anim\",\n \"type\": \"Rock\"\n}"
 						},
 						{
 							"name": "unexpected error",
@@ -281,37 +381,18 @@
 								}
 							],
 							"cookie": [],
-							"body": "{\n \"code\": -88628865,\n \"message\": \"dolor Duis mollit eiusmod\"\n}"
+							"body": "{\n \"code\": \"Pet cannot be null\",\n \"message\": \"laborum\",\n \"errors\": {}\n}"
 						}
 					]
 				}
 			]
 		}
 	],
-	"event": [
-		{
-			"listen": "prerequest",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		},
-		{
-			"listen": "test",
-			"script": {
-				"type": "text/javascript",
-				"exec": [
-					""
-				]
-			}
-		}
-	],
 	"variable": [
 		{
 			"key": "baseUrl",
-			"value": "http://petstore.swagger.io/v1"
+			"value": "https://localhost:44321/API",
+			"type": "string"
 		}
 	]
 }

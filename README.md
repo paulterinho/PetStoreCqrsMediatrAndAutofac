@@ -10,6 +10,8 @@
  
 Based on the Microsoft eShops example (see appendix below), this is a simpler example of how to leverage Mediatr and Autofac in a CQRS project.
 
+Check out my presentation called `README.presentation.pdf` in the project root. It shows more highlights of this app.
+
 
 ## Highlights
 ### Autofac
@@ -50,6 +52,9 @@ Check out the Microsoft Articles on CQRS, and especially look at the eShops refe
 
 ### OpenAPI
 I've scaffolded the API & it's serializable objects via NSwag Studio using an OpenAPI document. Check out this document in `PetStore.OpenAPI`
+
+### Presentation
+Check out the Presentation called `README.presentation.pdf` in the project root. It shows highlights of this app.
 
 #### APPENDIX:
 
