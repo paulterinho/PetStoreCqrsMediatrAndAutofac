@@ -21,8 +21,8 @@ namespace PetStore.Domain.Model
         public static PetTypeEnum Rock = new PetTypeEnum(PetTypeValue.Rock);
         public static PetTypeEnum Sloth = new PetTypeEnum(PetTypeValue.Sloth);
 
-        public PetTypeEnum(PetTypeValue waiverStatus)
-            : base(waiverStatus) { }
+        public PetTypeEnum(PetTypeValue petType)
+            : base(petType) { }
 
         public static IEnumerable<PetTypeEnum> List() =>
             new[] { Bat, Cat, Dog, Goat, Monkey, Rock, Sloth };

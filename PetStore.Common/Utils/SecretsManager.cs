@@ -119,8 +119,8 @@ namespace PetStore.Common.Utils
             {
 
                 ////var secretJSONString = SecretsManager.GetSecret("", RegionEndpoint.USEast1);
-                ////WaiverSecretsManager.GetSecret();
-                ////var secret = SecretsManager.GetSecret(WaiversConstants.SECRETS_NAME, "us-east-1");
+                ////SecretsManager.GetSecret();
+                ////var secret = SecretsManager.GetSecret(sConstants.SECRETS_NAME, "us-east-1");
 
                 //if (Environment == DevelopmentEnvironment.EnvironmentName)
                 //{

@@ -13,56 +13,34 @@ Based on the Microsoft eShops example (see appendix below), this is a simpler ex
 Check out my presentation called `README.presentation.pdf` in the project root. It shows more highlights of this app.
 
 
-## Highlights
-### Autofac
+## Setup
 
-This is an Inversion of Control (IOC) container that allows us to be lazy and more flexible on how we construct our applications. 
+### 1) Run DB Scripts
+Figure out which DB you want to add the two tables, `petCommand.Pet` & `petQuery.Pet` to be located in
+and run the `PetStore.Infrastructure/Scripts/Migrations/PetStoreMigrations_8-30-2021.sql` migration script so those 
+two tables exist.
 
-Check out the `Startup.cs` to see where this begins, and follow it's trail to the `AutofacStart.cs`
+Syntax assumes SQL Server.
 
-Also, DotNet 3+ has it's own IOC container built in. It may not be necessary to use Autofac. 
+### 2) Update the connection string.
+`appsettings.json` is the config file this application looks at when it starts the API project. 
 
-### MediatR
-"MediatR Pattern/Library is used to reduce dependencies between objects. 
+Make sure you alter that `PetStore.API/appsettings.json`'s `ConnectionStrings > DefaultConnection` value
+so that the db name matches the one you've placed your tables in.
 
-It allows in-process messaging,but it will not allow direct communication between objects. Instead of this it forces to communicate via MediatR only, such as classes that don't have dependencies on each other, that's why they are less coupled." (See quote url in Appendix)
+The connection string looks like this:  `data source=localhost; initial catalog=cxdw; integrated security=True;` 
+make sure you replace the `cxdw` part of that string with the name of your database.
 
-#### Pipelines (Logging, Validation, Transactions)
-In addition to the benefits of Inversion of control, you can also use Mediatr's Pipelines to address things like logging, validation, and even authentication if you wanted to. 
+### 3) Run the API project.
+Run the API project
 
-The pipeline sets up a series of handlers that will take action on each `Request` depending on how you configure them. 
+### 4) Import the Postman file
+Import the `PetStore.Postman.json` into postman to interact with the API project. 
 
-Check out the `AutofacStart.cs` module for where configuration is happening. 
+#### Order of operations:
+1. Create a Pet (do this a few times so you can test out the List Pets functionality)
+2. Get a Pet by ResoureID.
+3. List all Pets.
 
-##### Logger
-This Project has `LoggingBehavior.cs` configured to happen first thing, so any `Request` that comes in will be logged. 
-
-##### Validation pre-Domain Layer.
-Check out `CreatePetValidator.cs`
-
-##### Cons
-- Mediatr sadly only uses one thread. Perhaps this will change for even more speed. 
-- For `Mediatr` notifications, sadly you can't throw execptions and catch them. If you use a `notification` be sure there won't be any errors. 
-
-### "Fluent Validation"
-This is an elegant library to ensure your business rules are being followed. Check out `CreatePetValidator.cs` to see the basic usage. 
-
-### CQRS
-Check out the Microsoft Articles on CQRS, and especially look at the eShops reference project they've posted (see appendix).
-
-### OpenAPI
-I've scaffolded the API & it's serializable objects via NSwag Studio using an OpenAPI document. Check out this document in `PetStore.OpenAPI`
-
-### Presentation
-Check out the Presentation called `README.presentation.pdf` in the project root. It shows highlights of this app.
-
-#### APPENDIX:
-
-- Author's Github: https://github.com/paulito-bandito
-- ASCI Font URL: https://patorjk.com/software/taag/#p=display&f=Doom&t=Paul%20likes%20to%20move%20it%20move%20it
-- Autofac:https://autofac.org/
-- Fluent Validation: https://fluentvalidation.net/
-- Mediator: https://github.com/jbogard/MediatR
-- MediatR Quote: https://www.c-sharpcorner.com/article/introduction-to-mediatr-pattern/
-- Microsoft CQRS & DDD Howto: https://docs.microsoft.com/en-us/dotnet/architecture/microservices/microservice-ddd-cqrs-patterns/apply-simplified-microservice-cqrs-ddd-patterns
-- Microsoft eShops: https://docs.microsoft.com/en-us/dotnet/architecture/cloud-native/introduce-eshoponcontainers-reference-app
+# Presentation
+Check out the `README.presentation.pdf` for the highlights of this project.

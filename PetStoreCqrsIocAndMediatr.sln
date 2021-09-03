@@ -12,7 +12,10 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{B59875DA-92C3-4849-BA5A-78B733CEF6B2}"
 	ProjectSection(SolutionItems) = preProject
 		.gitignore = .gitignore
+		PetStore.API\appsettings.json = PetStore.API\appsettings.json
+		PetStore.Postman.json = PetStore.Postman.json
 		README.md = README.md
+		README.presentation.pdf = README.presentation.pdf
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "PetStore.Infrastructure", "PetStore.Infrastructure\PetStore.Infrastructure.csproj", "{9000015D-FACF-41B7-A7BF-C7363A8F8040}"

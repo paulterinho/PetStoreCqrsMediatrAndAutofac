@@ -11,10 +11,10 @@ namespace Petstore.Api.Application.Utils
     {
         public static DomainModels.Pet From(SDK.Pet pet)
         {
-            DomainModels.Pet sdkWaiver = null;
+            DomainModels.Pet domainModel = null;
             try
             {
-                sdkWaiver = new DomainModels.Pet(
+                domainModel = new DomainModels.Pet(
                     pet.ResourceID, pet.Name,
                     (pet.Type != null) ? PetTypeEnum.FromName(pet.Type?.ToString()) : null); // can be null
             }
@@ -24,16 +24,16 @@ namespace Petstore.Api.Application.Utils
                 throw;
             }
 
-            return sdkWaiver;
+            return domainModel;
         }
 
 
         public static SDK.Pet From(DomainModels.Pet changedPet)
         {
-            SDK.Pet sdkWaiver = null;
+            SDK.Pet sdkModel = null;
             try
             {
-                sdkWaiver = new SDK.Pet()
+                sdkModel = new SDK.Pet()
                 {
                     ResourceID = changedPet.ResourceID,
                     Name = changedPet.Name,
@@ -46,7 +46,7 @@ namespace Petstore.Api.Application.Utils
                 throw;
             }
 
-            return sdkWaiver;
+            return sdkModel;
         }
 
 

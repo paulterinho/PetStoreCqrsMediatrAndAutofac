@@ -2,7 +2,7 @@
 using FluentValidation;
 using MediatR;
 using Petstore.Api.Application.Command;
-using Petstore.Api.Application.Validator.WaiverRequests.API.Application.Validators;
+using Petstore.Api.Application.Validator;
 using PetStore.API.Application.Query.DomainEventHandlers;
 using PetStore.Domain.Events;
 using System.Reflection;
